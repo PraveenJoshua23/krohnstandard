@@ -1,0 +1,358 @@
+// ── Backdrop ─────────────────────────────────────────────────────────────────
+// Block layout (GSAP sets display: block).
+// The backdrop itself scrolls — no max-height on the panel, no internal overflow.
+
+.cm-backdrop {
+  display: none; // GSAP sets to block
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: clamp(2rem, 6vh, 5rem) clamp(1rem, 4vw, 2rem);
+}
+
+// ── Panel ─────────────────────────────────────────────────────────────────────
+
+.cm-panel {
+  position: relative;
+  background: #0a0a0a;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto; // horizontal centering inside scrollable backdrop
+  padding: clamp(40px, 6vw, 72px) clamp(28px, 6vw, 72px);
+  border: 1px solid rgba(201, 168, 76, 0.12);
+}
+
+// ── Close button ─────────────────────────────────────────────────────────────
+
+.cm-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.2s;
+  padding: 0;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+// ── Header ────────────────────────────────────────────────────────────────────
+
+.cm-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 20px;
+}
+
+.cm-heading {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: var(--tracking-display);
+  color: #fff;
+  margin: 0 0 20px;
+}
+
+.cm-intro {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.7;
+  font-weight: 300;
+  margin: 0 0 44px;
+  max-width: 480px;
+
+  // Thin divider below intro
+  padding-bottom: 36px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+// ── Form layout ───────────────────────────────────────────────────────────────
+
+.cm-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.cm-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  @media (max-width: 560px) {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+// ── Field ─────────────────────────────────────────────────────────────────────
+
+.cm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cm-label {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 400;
+}
+
+.cm-required {
+  color: var(--color-gold);
+  margin-left: 2px;
+}
+
+.cm-optional {
+  color: rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.15em;
+  text-transform: none;
+}
+
+// ── Inputs & Textarea ─────────────────────────────────────────────────────────
+
+%input-base {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  padding: 14px 16px;
+  outline: none;
+  transition: border-color 0.25s;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+  }
+
+  &:focus {
+    border-color: rgba(201, 168, 76, 0.5);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.cm-input {
+  @extend %input-base;
+}
+
+.cm-textarea {
+  @extend %input-base;
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.65;
+}
+
+// ── Select ────────────────────────────────────────────────────────────────────
+
+.cm-select-wrap {
+  position: relative;
+}
+
+.cm-select {
+  @extend %input-base;
+  padding-right: 40px;
+  cursor: pointer;
+
+  option {
+    background: #0a0a0a;
+    color: #fff;
+  }
+}
+
+.cm-select-arrow {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+// ── Validation error states ───────────────────────────────────────────────────
+
+.cm-field--error {
+  .cm-input,
+  .cm-textarea,
+  .cm-select {
+    border-color: rgba(220, 80, 80, 0.5);
+  }
+}
+
+.cm-error-msg {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: rgba(220, 100, 100, 0.85);
+  font-weight: 300;
+}
+
+// ── Form-level error ──────────────────────────────────────────────────────────
+
+.cm-form-error {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: rgba(220, 100, 100, 0.85);
+  padding: 14px 16px;
+  border: 1px solid rgba(220, 80, 80, 0.2);
+  line-height: 1.6;
+  font-weight: 300;
+
+  a {
+    color: rgba(220, 100, 100, 0.85);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+// ── Actions ───────────────────────────────────────────────────────────────────
+
+.cm-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding-top: 8px;
+}
+
+.cm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 48px;
+  background: transparent;
+  border: 1px solid rgba(201, 168, 76, 0.6);
+  font-family: var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #C9A84C; // hardcoded so browser disabled-state override can't steal it
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+  font-weight: 400;
+
+  // Browsers (especially Safari/iOS) override color on disabled buttons.
+  // Re-assert it explicitly.
+  &:disabled {
+    color: #C9A84C;
+    -webkit-text-fill-color: #C9A84C;
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &--loading {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    background: #C9A84C;
+    border-color: #C9A84C;
+    color: #000;
+    -webkit-text-fill-color: #000;
+  }
+}
+
+.cm-disclaimer {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.04em;
+  margin: 0;
+  font-weight: 300;
+}
+
+// ── Spinner ───────────────────────────────────────────────────────────────────
+
+.cm-spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-top-color: var(--color-gold);
+  border-radius: 50%;
+  animation: cm-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes cm-spin {
+  to { transform: rotate(360deg); }
+}
+
+// ── Success state ─────────────────────────────────────────────────────────────
+
+.cm-success {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  padding-top: 8px;
+}
+
+.cm-success__icon {
+  margin-bottom: 8px;
+}
+
+.cm-success__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.cm-success__heading {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.5vw, 48px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: var(--tracking-display);
+  color: #fff;
+  margin: 0;
+}
+
+.cm-success__body {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.7;
+  font-weight: 300;
+  max-width: 400px;
+  margin: 0 0 12px;
+}

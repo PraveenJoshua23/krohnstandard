@@ -1,0 +1,163 @@
+:host {
+  display: block;
+}
+
+.collections {
+  background: var(--color-charcoal);
+  padding: clamp(60px, 10vw, 140px) clamp(1.5rem, 5vw, 60px);
+  overflow-x: clip;
+}
+
+.collections__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: clamp(40px, 6vw, 80px);
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.collections__label {
+  font-size: 9px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--color-gold-dim);
+  margin-bottom: 16px;
+  font-family: var(--font-sans);
+}
+
+.collections__title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.5vw, 52px);
+  font-weight: 500;
+  color: var(--color-gold);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-display);
+}
+
+/* ── Grid ── */
+.collections__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 420px 320px;
+  gap: 3px;
+}
+
+.col-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: #111;
+
+  &:first-child {
+    grid-row: 1 / 3;
+  }
+}
+
+.col-card--wide {
+  grid-column: 2 / 4;
+}
+
+/* ── Card image ── */
+.col-card__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  user-select: none;
+}
+
+.col-card:hover .col-card__img {
+  transform: scale(1.04);
+}
+
+/* ── Overlay and info ── */
+.col-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.08) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+.col-card__info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 36px;
+}
+
+.col-card__name {
+  font-family: "Dancing Script", cursive;
+  font-size: 36px;
+  font-weight: 400;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.col-card:first-child .col-card__name {
+  font-size: 52px;
+}
+
+.col-card__desc {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+  max-width: 320px;
+  font-family: var(--font-sans);
+}
+
+/* Arrow */
+.col-card__arrow {
+  position: absolute;
+  top: 36px;
+  right: 36px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+  color: var(--color-gold);
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.col-card:hover .col-card__arrow {
+  opacity: 1;
+  transform: translate(4px, -4px);
+}
+
+@media (max-width: 880px) {
+  .collections__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .col-card:first-child {
+    grid-row: auto;
+    height: 400px;
+  }
+
+  .col-card--wide {
+    grid-column: auto;
+    height: 300px;
+  }
+
+  .col-card {
+    height: 280px;
+  }
+}

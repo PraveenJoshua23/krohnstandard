@@ -1,0 +1,112 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.mp {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: var(--color-bone);
+  padding-inline: clamp(2.5rem, 5vw, 5rem);
+  padding-top: clamp(5rem, 10vh, 7rem);
+  gap: clamp(3rem, 6vw, 7rem);
+  box-sizing: border-box;
+}
+
+// ─── Left: heading ────────────────────────────────────────────────────────────
+
+.mp__left {
+  flex: 0 0 auto;
+  width: clamp(18rem, 32%, 26rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mp__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.mp__headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4vw, 4rem);
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+  margin: 0;
+}
+
+.mp__line-wrap {
+  display: block;
+  overflow: hidden;
+}
+
+.mp__line {
+  display: block;
+}
+
+// ─── Right: material grid ─────────────────────────────────────────────────────
+
+.mp__grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  height: calc(100% - clamp(5rem, 10vh, 7rem));
+}
+
+.material {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.1rem 1.25rem;
+  cursor: default;
+  transition: transform 0.9s var(--ease-luxe);
+  will-change: transform;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 45%, rgba(0, 0, 0, 0.5) 100%);
+    pointer-events: none;
+  }
+
+  span {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-bone);
+    font-weight: 400;
+  }
+}
+
+.material__img-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.material__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+}
+
+[data-tone='gold']    { background: linear-gradient(135deg, #c8a35c 0%, #8c6a2f 100%); }
+[data-tone='leather'] { background: linear-gradient(135deg, #3a2a1e 0%, #1f140d 100%); }
+[data-tone='stone']   { background: linear-gradient(135deg, #ebe8e1 0%, #c8c4bb 100%); span { color: var(--color-ink); } }
+[data-tone='ceramic'] { background: linear-gradient(135deg, #1a1a1a 0%, #000 100%); }

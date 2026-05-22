@@ -1,0 +1,137 @@
+:host {
+  display: block;
+}
+
+// ─── Layout ──────────────────────────────────────────────────────────────────
+
+.hero-v2 {
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+// ─── Left panel ──────────────────────────────────────────────────────────────
+
+.hero-v2__left {
+  width: 38%;
+  background: #0c3424;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(3rem, 6vw, 5rem) clamp(2rem, 4vw, 3.5rem);
+  padding-top: clamp(8rem, 16vh, 13rem);
+}
+
+.hero-v2__quote {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 6.5vw, 6rem);
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.38);
+  display: block;
+  margin-bottom: -0.4em;
+  user-select: none;
+}
+
+.hero-v2__content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 2.5vh, 1.75rem);
+}
+
+.hero-v2__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.6vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: #f5f3ee;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin: 0;
+}
+
+.hero-v2__manifesto {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #4d8a68;
+  margin: 0;
+  font-weight: 400;
+}
+
+// ─── CTA button ──────────────────────────────────────────────────────────────
+
+.hero-v2__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.875rem;
+  align-self: flex-start;
+  padding: 0.8rem 1rem 0.8rem 1.35rem;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #f5f3ee;
+  background: rgba(8, 34, 22, 0.45);
+  border: 1px solid rgba(245, 243, 238, 0.28);
+  transition:
+    background 0.45s var(--ease-luxe),
+    border-color 0.45s var(--ease-luxe);
+
+  &:hover {
+    background: rgba(245, 243, 238, 0.08);
+    border-color: rgba(245, 243, 238, 0.55);
+  }
+}
+
+.hero-v2__btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.625rem;
+  height: 1.625rem;
+  border: 1px solid rgba(245, 243, 238, 0.38);
+  border-radius: 50%;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+// ─── Right panel ─────────────────────────────────────────────────────────────
+
+.hero-v2__right {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+  }
+}
+
+// ─── Responsive ──────────────────────────────────────────────────────────────
+
+@media (max-width: 860px) {
+  .hero-v2 {
+    flex-direction: column;
+  }
+
+  .hero-v2__left {
+    width: 100%;
+    padding-top: clamp(6rem, 14vh, 10rem);
+    padding-bottom: clamp(3rem, 6vh, 5rem);
+  }
+
+  .hero-v2__right {
+    height: 55vw;
+    min-height: 260px;
+  }
+}

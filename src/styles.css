@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Design tokens
+   Fonts served by Adobe Fonts (use.typekit.net/mup2jdi.css in index.html)
+     Display: "condor"         weight 500
+     Body:    "gill-sans-nova" weight 300 / 400 / 700
+   ========================================================================== */
+
+@font-face {
+    font-family: 'CondorExtd';
+    src: url('/fonts/CondorExtd-Light.otf') format('opentype'),
+         url('/fonts/CondorExtd-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
+@theme {
+  --font-display: 'CondorExtd', "condor", "Times New Roman", serif;
+  --font-sans: "gill-sans-nova", "Gill Sans MT", "Helvetica Neue", sans-serif;
+  --font-cormorant: 'Cormorant Garamond', 'Times New Roman', serif;
+
+  --color-ink: #0a0a0a;
+  --color-bone: #f5f3ee;
+  --color-paper: #fbfaf7;
+  --color-mist: #e8e6df;
+  --color-muted: #8a8880;
+
+  --color-forest: #0D2B1E;
+  --color-forest-mid: #1A4A32;
+  --color-gold: #C9A84C;
+  --color-gold-light: #E8D49A;
+  --color-gold-dim: #8B6F2E;
+  --color-cream: #F5F0E8;
+  --color-charcoal: #F0EDE6;
+  --color-charcoal-mid: #E8E4DC;
+
+  --tracking-display: -0.02em;
+  --tracking-wide: 0.18em;
+
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+html {
+  height: 100%;
+  max-width: 100%;
+}
+
+body {
+  height: 100%;
+  overflow-x: clip;
+  max-width: 100%;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  overscroll-behavior: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: var(--tracking-display);
+  margin: 0;
+}
+
+/* Lenis smooth-scroll baseline */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Reveal utility — used by the ScrollReveal directive */
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition:
+    opacity 1.1s var(--ease-luxe),
+    transform 1.1s var(--ease-luxe);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Selection */
+::selection {
+  background: var(--color-ink);
+  color: var(--color-bone);
+}
+
+/* Dark-hero nav overrides (hero-v2 sets data-hero="dark" on <html>) */
+:root[data-hero='dark'] .nav:not(.is-scrolled) .nav__logo {
+  filter: invert(1);
+}
+
+:root[data-hero='dark'] .nav:not(.is-scrolled) .nav__links a,
+:root[data-hero='dark'] .nav:not(.is-scrolled) .nav__links button {
+  color: rgba(245, 243, 238, 0.75);
+}
+
+:root[data-hero='dark'] .nav:not(.is-scrolled) .nav__cta {
+  color: var(--color-bone);
+  border-color: rgba(245, 243, 238, 0.5);
+}

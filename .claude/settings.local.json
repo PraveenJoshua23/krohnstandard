@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm -v)",
+      "Bash(npx --yes @angular/cli@latest version)",
+      "Read(//usr/local/bin/**)",
+      "Bash(source ~/.zshrc)",
+      "Bash(source ~/.nvm/nvm.sh)",
+      "Bash(nvm current:*)",
+      "Bash(command -v node)",
+      "Bash(/usr/local/bin/node -v)",
+      "Bash(/usr/local/bin/npm -v)",
+      "Bash(export PATH=\"/usr/local/bin:$PATH\")",
+      "Bash(npx --yes @angular/cli@latest new krohn --directory=. --style=scss --ssr=false --routing=true --skip-git --package-manager=npm --defaults)",
+      "Bash(npm install:*)",
+      "Bash(npx ng:*)",
+      "Bash(mv src/styles.scss src/styles.css)",
+      "Bash(ls src/*.css src/*.scss)",
+      "WebFetch(domain:use.typekit.net)"
+    ]
+  }
+}

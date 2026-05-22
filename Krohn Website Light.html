@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KROHN — The Standard (Light)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8D49A;
+    --gold-dim: #8B6F2E;
+    --deep-green: #0D2B1E;
+    --green-mid: #1A4A32;
+    --cream: #F5F0E8;
+    --off-white: #FAF8F4;
+    /* Light alternative: warm stone replaces charcoal */
+    --charcoal: #F0EDE6;
+    --charcoal-mid: #E8E4DC;
+    --charcoal-dark: #D8D3C8;
+    --text-on-light: #1C1A16;
+    --text-muted: #6B6B6B;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--charcoal);
+    color: var(--text-on-light);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 60px;
+    mix-blend-mode: normal;
+  }
+  nav::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(13,43,30,0.85) 0%, transparent 100%);
+    pointer-events: none;
+  }
+  .nav-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 22px;
+    letter-spacing: 0.35em;
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+  }
+  .nav-links {
+    display: flex;
+    gap: 48px;
+    list-style: none;
+    position: relative;
+  }
+  .nav-links a {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 10px 28px;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .nav-cta:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* ── HERO (placeholder carousel frame) ── */
+  .hero {
+    height: 100vh;
+    background: var(--deep-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 60%, rgba(201,168,76,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(26,74,50,0.6) 0%, transparent 60%),
+                linear-gradient(135deg, #0a1f15 0%, #0D2B1E 50%, #071610 100%);
+  }
+  .hero-content {
+    position: relative;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 8vw, 110px);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    color: #fff;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.5s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .hero-sub {
+    margin-top: 32px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    opacity: 0;
+    animation: fadeUp 1s ease 0.7s forwards;
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s forwards;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+  @keyframes scrollPulse {
+    0%,100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.1); }
+  }
+
+  /* ── MANIFESTO ── */
+  .manifesto {
+    background: var(--deep-green);
+    padding: 160px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .manifesto::before {
+    content: 'KROHN';
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 200px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: rgba(201,168,76,0.06);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .manifesto-label {
+    font-size: 9px;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+  }
+  .manifesto-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 5vw, 72px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 40px;
+  }
+  .manifesto-headline strong {
+    font-weight: 600;
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .manifesto-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 40px;
+  }
+  .manifesto-body {
+    font-size: 14px;
+    line-height: 2;
+    color: rgba(245,240,232,0.65);
+    font-weight: 300;
+    max-width: 480px;
+  }
+  .manifesto-body strong {
+    color: var(--cream);
+    font-weight: 400;
+  }
+  .manifesto-right {
+    position: relative;
+  }
+  .manifesto-image-block {
+    position: relative;
+    height: 580px;
+  }
+  .manifesto-img-main {
+    width: 78%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .manifesto-img-card {
+    position: absolute;
+    bottom: -40px;
+    right: 0;
+    width: 52%;
+    height: 300px;
+    object-fit: cover;
+    border: 4px solid var(--deep-green);
+  }
+  .manifesto-stat {
+    position: absolute;
+    top: 40px;
+    right: -30px;
+    background: var(--off-white);
+    padding: 28px 32px;
+    text-align: center;
+    border-left: 2px solid var(--gold);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(28,26,22,0.45);
+    margin-top: 8px;
+  }
+
+  /* ── COLLECTIONS ── */
+  .collections {
+    background: var(--charcoal);
+    padding: 140px 60px;
+  }
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 80px;
+  }
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 58px);
+    font-weight: 300;
+    color: var(--text-on-light);
+    line-height: 1.1;
+  }
+  .section-link {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: gap 0.3s;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--gold-dim);
+  }
+  .section-link:hover { gap: 20px; }
+
+  .collections-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 420px 320px;
+    gap: 3px;
+  }
+  .col-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .col-card:first-child {
+    grid-row: 1 / 3;
+  }
+  .col-card-bg {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .col-card:hover .col-card-bg { transform: scale(1.04); }
+
+  .col-card--elysian .col-card-bg {
+    background: linear-gradient(135deg, #8B1A1A 0%, #C4507A 30%, #E8A87C 60%, #2980B9 100%);
+  }
+  .col-card--aurelian .col-card-bg {
+    background: linear-gradient(160deg, #1a0a00 0%, #3D2B1F 40%, #6B4226 100%);
+  }
+  .col-card--sovereign .col-card-bg {
+    background: linear-gradient(160deg, #0D0D0D 0%, #2a2a2a 50%, #C9A84C 100%);
+  }
+  .col-card--atelier .col-card-bg {
+    background: linear-gradient(160deg, #0D1A0D 0%, #1A3A1A 60%, #2E5C2E 100%);
+  }
+
+  /* Decorative phone mockup overlays */
+  .col-card-phones {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .phone-mock {
+    width: 90px;
+    height: 170px;
+    border-radius: 14px;
+    border: 2px solid rgba(255,255,255,0.15);
+    position: absolute;
+    transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .col-card:first-child .phone-mock { width: 120px; height: 230px; }
+  .col-card:hover .phone-mock { transform: translateY(-8px) rotate(var(--r)); }
+
+  /* Elysian phones */
+  .ph-1 { background: linear-gradient(170deg,#e63946,#c1121f); --r:-8deg; transform: rotate(-8deg) translate(-160px, 30px); }
+  .ph-2 { background: linear-gradient(170deg,#8338ec,#5a189a); --r:-3deg; transform: rotate(-3deg) translate(-60px, 10px); }
+  .ph-3 { background: linear-gradient(170deg,#f4a261,#e76f51); --r:2deg; transform: rotate(2deg) translate(50px, -10px); }
+  .ph-4 { background: linear-gradient(170deg,#2196f3,#0d47a1); --r:7deg; transform: rotate(7deg) translate(155px, 20px); }
+  .ph-5 { background: linear-gradient(170deg,#2d6a4f,#1b4332); --r:12deg; transform: rotate(12deg) translate(250px, 40px); }
+  .ph-6 { background: linear-gradient(170deg,#f72585,#b5179e); --r:-14deg; transform: rotate(-14deg) translate(-260px, 50px); }
+
+  /* Aurelian phone */
+  .ph-a1 { background: linear-gradient(170deg,#3D2B1F,#6B4226); --r:-4deg; transform: rotate(-4deg) translate(-20px,0); }
+  .ph-a1::after { content:''; position:absolute; bottom:0; left:10px; right:10px; height:55%; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 0 L10 0 L10 10 L0 10Z' fill='%23C9A84C' opacity='0.3'/%3E%3C/svg%3E") repeat; }
+
+  /* Sovereign phones */
+  .ph-s1 { background: linear-gradient(170deg,#C9A84C,#8B6F2E); --r:-3deg; transform: rotate(-3deg) translate(-10px,0); box-shadow: 0 0 40px rgba(201,168,76,0.3); }
+
+  /* Atelier phone */
+  .ph-at1 { background: linear-gradient(170deg,#2a2a2a,#1a1a1a); --r:-2deg; transform: rotate(-2deg); border: 2px solid var(--gold); }
+  .ph-at1::after { content:''; position:absolute; inset:20% 8px 8px; background: repeating-linear-gradient(45deg, rgba(201,168,76,0.1) 0px, rgba(201,168,76,0.1) 2px, transparent 2px, transparent 8px); }
+
+  .col-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+    pointer-events: none;
+  }
+  .col-card-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 36px;
+  }
+  .col-card-tag {
+    display: inline-block;
+    font-size: 8px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold-dim);
+    padding: 4px 10px;
+    margin-bottom: 14px;
+  }
+  .col-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    font-style: italic;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .col-card:first-child .col-card-name { font-size: 52px; }
+  .col-card-desc {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+    max-width: 320px;
+  }
+  .col-card-arrow {
+    position: absolute;
+    top: 36px;
+    right: 36px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(201,168,76,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .col-card:hover .col-card-arrow {
+    opacity: 1;
+    transform: translate(4px,-4px);
+  }
+  .col-card-arrow svg { width: 16px; height: 16px; fill: none; stroke: var(--gold); stroke-width: 1.5; }
+
+  /* ── MATERIALS ── */
+  .materials {
+    background: var(--off-white);
+    padding: 140px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .materials::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 40%;
+    height: 100%;
+    background: var(--deep-green);
+    clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  .materials .section-label { color: var(--gold-dim); }
+  .materials .section-title { color: var(--charcoal-dark); }
+  .materials-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: start;
+  }
+  .materials-left { }
+  .materials-body {
+    font-size: 14px;
+    line-height: 2;
+    color: #555;
+    margin-bottom: 60px;
+    max-width: 440px;
+    font-weight: 300;
+  }
+  .materials-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+    max-width: 440px;
+  }
+  .mat-swatch {
+    height: 120px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .mat-swatch-inner {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.5s;
+  }
+  .mat-swatch:hover .mat-swatch-inner { transform: scale(1.06); }
+  .mat-swatch-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 10px 14px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  /* Leather textures via CSS patterns */
+  .sw-croc .mat-swatch-inner {
+    background-color: #2a1a0a;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 12px, rgba(255,255,255,0.04) 12px, rgba(255,255,255,0.04) 13px),
+                      repeating-linear-gradient(90deg, transparent, transparent 14px, rgba(255,255,255,0.04) 14px, rgba(255,255,255,0.04) 15px);
+  }
+  .sw-ostrich .mat-swatch-inner {
+    background-color: #8B4513;
+    background-image: radial-gradient(circle at 10px 10px, rgba(255,255,255,0.1) 3px, transparent 3px),
+                      radial-gradient(circle at 30px 30px, rgba(255,255,255,0.07) 4px, transparent 4px),
+                      radial-gradient(circle at 50px 15px, rgba(255,255,255,0.08) 3px, transparent 3px);
+    background-size: 60px 60px, 60px 60px, 60px 60px;
+  }
+  .sw-snake .mat-swatch-inner {
+    background-color: #3D4A2A;
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 4px, transparent 4px, transparent 12px);
+  }
+  .sw-full .mat-swatch-inner {
+    background-color: #1a1a1a;
+    background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, transparent 70%);
+  }
+  .sw-gold .mat-swatch-inner { background: linear-gradient(135deg, #C9A84C, #F4D77A, #8B6F2E, #E8C55A); }
+  .sw-platinum .mat-swatch-inner { background: linear-gradient(135deg, #8E9BAB, #C8D0D8, #6E7B8B, #BCC5CE); }
+  .sw-rose .mat-swatch-inner { background: linear-gradient(135deg, #B76E79, #E8A4AE, #9A5560, #D4909A); }
+  .sw-18k .mat-swatch-inner { background: linear-gradient(135deg, #D4A017, #F5CE6A, #9B7313, #E8C040); }
+
+  .mat-metals { margin-top: 3px; }
+  .mat-metals .mat-swatch { height: 90px; }
+
+  .materials-right {
+    position: relative;
+    padding-top: 60px;
+  }
+  .mat-feature-card {
+    background: var(--off-white);
+    padding: 52px;
+    margin-bottom: 3px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--charcoal-dark);
+  }
+  .mat-feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--gold);
+  }
+  .mat-feature-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 300;
+    color: rgba(201,168,76,0.18);
+    line-height: 1;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+  }
+  .mat-feature-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--text-on-light);
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+  .mat-feature-text {
+    font-size: 12px;
+    color: rgba(28,26,22,0.5);
+    line-height: 1.9;
+    font-weight: 300;
+    max-width: 300px;
+  }
+
+  /* ── COLOURS ── */
+  .colours {
+    background: var(--charcoal-mid);
+    padding: 140px 60px;
+  }
+  .colours-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 80px;
+  }
+  .colours-body {
+    font-size: 14px;
+    line-height: 2;
+    color: rgba(28,26,22,0.55);
+    font-weight: 300;
+  }
+  .colour-palette {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3px;
+  }
+  .colour-chip {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    aspect-ratio: 1;
+  }
+  .colour-chip-inner {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.4s;
+  }
+  .colour-chip:hover .colour-chip-inner { transform: scale(1.06); }
+  .colour-chip-info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 12px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.75));
+    font-size: 8px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.3s;
+    line-height: 1.4;
+  }
+  .colour-chip:hover .colour-chip-info { opacity: 1; }
+
+  .cc-saffron .colour-chip-inner { background: #D4A44C; }
+  .cc-blush .colour-chip-inner { background: #E8A0A8; }
+  .cc-mocha .colour-chip-inner { background: #7A5C48; }
+  .cc-amethyst .colour-chip-inner { background: #4A3568; }
+  .cc-sage .colour-chip-inner { background: #8A9E6A; }
+  .cc-crimson .colour-chip-inner { background: #8B2635; }
+  .cc-riviera .colour-chip-inner { background: #5A9EB8; }
+  .cc-glacier .colour-chip-inner { background: #A8C8D4; }
+  .cc-emerald .colour-chip-inner { background: #1A4A2E; }
+  .cc-graphite .colour-chip-inner { background: #5A5A5A; }
+
+  .colour-palette-row2 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3px;
+    margin-top: 3px;
+  }
+
+  /* ── COMMISSION ── */
+  .commission {
+    background: var(--deep-green);
+    padding: 140px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .commission::after {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.08);
+    pointer-events: none;
+  }
+  .commission::before {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: -100px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.05);
+    pointer-events: none;
+  }
+  .commission-inner {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .commission-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+    margin-bottom: 100px;
+  }
+  .commission-body {
+    font-size: 14px;
+    line-height: 2;
+    color: rgba(245,240,232,0.6);
+    font-weight: 300;
+  }
+  .commission-cta {
+    display: inline-block;
+    margin-top: 40px;
+    padding: 16px 48px;
+    border: 1px solid var(--gold);
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .commission-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-101%);
+    transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .commission-cta:hover::before { transform: translateX(0); }
+  .commission-cta span { position: relative; z-index: 1; }
+  .commission-cta:hover span { color: var(--deep-green); }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+  .steps-grid::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.3), rgba(201,168,76,0.3), transparent);
+  }
+  .step {
+    padding: 0 40px 0 0;
+    position: relative;
+  }
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 300;
+    color: rgba(201,168,76,0.2);
+    line-height: 1;
+    margin-bottom: 32px;
+  }
+  .step-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    background: var(--deep-green);
+    position: absolute;
+    top: 35px;
+    left: 0;
+  }
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--gold-light);
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+  }
+  .step-text {
+    font-size: 12px;
+    color: rgba(245,240,232,0.5);
+    line-height: 1.9;
+    font-weight: 300;
+  }
+
+  /* ── CUSTOMISABILITY ── */
+  .customise {
+    background: var(--charcoal);
+    padding: 140px 60px;
+  }
+  .customise-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+  .phone-diagram {
+    position: relative;
+    width: 320px;
+    height: 580px;
+    margin: 0 auto;
+  }
+  .phone-diagram-body {
+    position: absolute;
+    inset: 0;
+    border-radius: 44px;
+    background: linear-gradient(160deg, #E8E4DC, #D8D3C8);
+    border: 2px solid rgba(139,111,46,0.25);
+    box-shadow: 0 40px 120px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.8);
+    overflow: hidden;
+  }
+  .phone-diagram-back {
+    position: absolute;
+    bottom: 60px; left: 40px; right: 40px;
+    height: 220px;
+    background: repeating-linear-gradient(45deg, rgba(139,111,46,0.08) 0, rgba(139,111,46,0.08) 2px, transparent 2px, transparent 10px);
+    border: 1px solid rgba(139,111,46,0.15);
+  }
+  .phone-diagram-cam {
+    position: absolute;
+    top: 30px; right: 30px;
+    width: 100px; height: 100px;
+    border-radius: 22px;
+    border: 2px solid rgba(139,111,46,0.3);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 8px;
+    padding: 12px;
+  }
+  .cam-lens {
+    border-radius: 50%;
+    background: radial-gradient(circle, #3a3a3a, #1a1a1a);
+    border: 1px solid rgba(0,0,0,0.2);
+  }
+  .cam-lens:nth-child(3) { grid-column: 1 / 3; }
+
+  .diagram-callout {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+  }
+  .diagram-callout-line {
+    height: 1px;
+    background: linear-gradient(to right, var(--gold-dim), rgba(139,111,46,0));
+    flex: 1;
+    min-width: 60px;
+  }
+  .diagram-callout-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid var(--gold-dim);
+    background: var(--gold-dim);
+    flex-shrink: 0;
+    transition: transform 0.3s;
+  }
+  .diagram-callout:hover .diagram-callout-dot { transform: scale(1.5); }
+  .diagram-callout-text {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(28,26,22,0.55);
+    white-space: nowrap;
+  }
+  /* callout positions */
+  .dc-cam { top: 60px; left: -220px; flex-direction: row-reverse; }
+  .dc-cam .diagram-callout-line { background: linear-gradient(to left, var(--gold-dim), rgba(139,111,46,0)); }
+  .dc-buttons { top: 220px; left: -220px; flex-direction: row-reverse; }
+  .dc-buttons .diagram-callout-line { background: linear-gradient(to left, var(--gold-dim), rgba(139,111,46,0)); }
+  .dc-back { bottom: 200px; right: -230px; }
+  .dc-body { bottom: 80px; right: -230px; }
+
+  .customise-right .section-title { color: var(--text-on-light); }
+  .customise-body {
+    font-size: 14px;
+    color: rgba(28,26,22,0.55);
+    line-height: 2;
+    font-weight: 300;
+    margin: 32px 0 48px;
+    max-width: 420px;
+  }
+  .custom-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .cf-item {
+    padding: 24px;
+    border: 1px solid rgba(139,111,46,0.2);
+    background: var(--off-white);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .cf-item:hover {
+    border-color: rgba(139,111,46,0.5);
+    box-shadow: 0 4px 24px rgba(201,168,76,0.08);
+  }
+  .cf-icon {
+    width: 32px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 16px;
+  }
+  .cf-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text-on-light);
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+  .cf-desc { font-size: 11px; color: rgba(28,26,22,0.45); line-height: 1.7; }
+
+  /* ── CLOSING ── */
+  .closing {
+    background: var(--deep-green);
+    padding: 200px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .closing::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.08) 0%, transparent 70%);
+  }
+  .closing-rings {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .closing-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.06);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: ringPulse 6s ease-in-out infinite;
+  }
+  .closing-ring:nth-child(1) { width: 400px; height: 400px; animation-delay: 0s; }
+  .closing-ring:nth-child(2) { width: 700px; height: 700px; animation-delay: 1s; }
+  .closing-ring:nth-child(3) { width: 1000px; height: 1000px; animation-delay: 2s; }
+  @keyframes ringPulse {
+    0%,100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+  .closing-content { position: relative; }
+  .closing-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 40px;
+  }
+  .closing-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 6vw, 90px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  .closing-headline em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .closing-sub {
+    font-size: 13px;
+    color: rgba(245,240,232,0.4);
+    letter-spacing: 0.1em;
+    margin-bottom: 64px;
+  }
+  .closing-actions {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+  }
+  .btn-primary {
+    padding: 18px 56px;
+    background: var(--gold);
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--deep-green);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+  }
+  .btn-primary:hover { background: var(--gold-light); }
+  .btn-secondary {
+    padding: 18px 56px;
+    border: 1px solid rgba(255,255,255,0.35);
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charcoal-dark);
+    padding: 80px 60px 40px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(139,111,46,0.2);
+    margin-bottom: 40px;
+  }
+  .footer-brand-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: 28px;
+    letter-spacing: 0.4em;
+    color: var(--text-on-light);
+    margin-bottom: 20px;
+  }
+  .footer-brand-text {
+    font-size: 12px;
+    color: rgba(28,26,22,0.45);
+    line-height: 1.9;
+    max-width: 280px;
+  }
+  .footer-col-title {
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 24px;
+  }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 12px; }
+  .footer-links a {
+    font-size: 12px;
+    color: rgba(28,26,22,0.4);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--gold-dim); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-copy {
+    font-size: 11px;
+    color: rgba(28,26,22,0.3);
+    letter-spacing: 0.1em;
+  }
+  .footer-legal { display: flex; gap: 32px; }
+  .footer-legal a {
+    font-size: 10px;
+    color: rgba(28,26,22,0.3);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: color 0.3s;
+  }
+  .footer-legal a:hover { color: var(--gold-dim); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.35s; }
+  .reveal-delay-4 { transition-delay: 0.5s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">KROHN</a>
+  <ul class="nav-links">
+    <li><a href="#">Collection</a></li>
+    <li><a href="#">Materials</a></li>
+    <li><a href="#">Atelier</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Studio</a>
+</nav>
+
+<!-- HERO PLACEHOLDER (represents existing carousel) -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">The Krohn Standard</div>
+    <h1 class="hero-title">For Those Who<br><em>Set</em> the Standard</h1>
+    <p class="hero-sub">Elysian · Aurelian · Sovereign · Atelier</p>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div>
+    <div class="manifesto-label reveal">The KROHN Manifesto</div>
+    <h2 class="manifesto-headline reveal reveal-delay-1">Where <strong>Perfection</strong><br>Meets Timeless<br>Class</h2>
+    <div class="manifesto-divider reveal reveal-delay-2"></div>
+    <p class="manifesto-body reveal reveal-delay-3">
+      <strong>KROHN</strong> was founded on a singular belief — that luxury should not just be a choice, but a definitive standard. We are not just a brand; we are a destination where absolute perfection and timeless class converge.<br><br>
+      We reject fleeting trends in favour of an identity that is distinct in itself and deliberately set apart. To choose KROHN is to recognise and elevate the benchmark.
+    </p>
+  </div>
+  <div class="manifesto-right reveal reveal-delay-2">
+    <div class="manifesto-image-block">
+      <div style="width:78%;height:100%;background:linear-gradient(160deg,#0a2416,#1A4A32,#2d6a4f);position:relative;">
+        <!-- phone silhouette -->
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-40%,-50%);width:140px;height:280px;border-radius:22px;background:linear-gradient(160deg,#C9A84C,#8B6F2E);box-shadow:0 40px 80px rgba(0,0,0,0.6);"></div>
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-40%,-50%);width:140px;height:280px;border-radius:22px;overflow:hidden;">
+          <div style="position:absolute;bottom:0;left:12px;right:12px;height:55%;background:repeating-linear-gradient(45deg,rgba(255,255,255,0.06) 0,rgba(255,255,255,0.06) 2px,transparent 2px,transparent 8px);"></div>
+          <div style="position:absolute;top:20px;right:20px;width:56px;height:56px;border-radius:12px;border:1.5px solid rgba(255,255,255,0.2);padding:8px;display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+            <div style="border-radius:50%;background:#111;"></div>
+            <div style="border-radius:50%;background:#111;"></div>
+            <div style="grid-column:1/3;border-radius:50%;background:#111;"></div>
+          </div>
+        </div>
+      </div>
+      <div style="position:absolute;bottom:-40px;right:0;width:52%;height:300px;background:linear-gradient(160deg,#1C1C1C,#2a2a2a);border:4px solid #080e0a;display:flex;align-items:center;justify-content:center;">
+        <div style="text-align:center;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:rgba(201,168,76,0.7);letter-spacing:0.1em;">Hand-assembled.</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:rgba(201,168,76,0.7);letter-spacing:0.1em;">Meticulously finished.</div>
+        </div>
+      </div>
+      <div class="manifesto-stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Series</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTIONS -->
+<section class="collections">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-label">Our Collections</div>
+      <h2 class="section-title">The Four<br>Standards</h2>
+    </div>
+    <a href="#" class="section-link">View All Collections →</a>
+  </div>
+
+  <div class="collections-grid">
+    <!-- Elysian - large -->
+    <div class="col-card">
+      <div class="col-card-bg col-card--elysian"></div>
+      <div class="col-card-phones">
+        <div class="phone-mock ph-6"></div>
+        <div class="phone-mock ph-1"></div>
+        <div class="phone-mock ph-2"></div>
+        <div class="phone-mock ph-3"></div>
+        <div class="phone-mock ph-4"></div>
+        <div class="phone-mock ph-5"></div>
+      </div>
+      <div class="col-card-overlay"></div>
+      <div class="col-card-info">
+        <span class="col-card-tag">Elysian Series</span>
+        <div class="col-card-name">Elysian</div>
+        <p class="col-card-desc">Your colour. Your standard. A spectrum of refined hues designed to reflect every shade of you.</p>
+      </div>
+      <div class="col-card-arrow"><svg viewBox="0 0 16 16"><path d="M2 14L14 2M14 2H6M14 2V10"/></svg></div>
+    </div>
+    <!-- Aurelian -->
+    <div class="col-card">
+      <div class="col-card-bg col-card--aurelian"></div>
+      <div class="col-card-phones">
+        <div class="phone-mock ph-a1"></div>
+      </div>
+      <div class="col-card-overlay"></div>
+      <div class="col-card-info">
+        <span class="col-card-tag">Aurelian Series</span>
+        <div class="col-card-name">Aurelian</div>
+        <p class="col-card-desc">Colour and leather in harmony. Defining the standard.</p>
+      </div>
+      <div class="col-card-arrow"><svg viewBox="0 0 16 16"><path d="M2 14L14 2M14 2H6M14 2V10"/></svg></div>
+    </div>
+    <!-- Sovereign -->
+    <div class="col-card">
+      <div class="col-card-bg col-card--sovereign"></div>
+      <div class="col-card-phones">
+        <div class="phone-mock ph-s1"></div>
+      </div>
+      <div class="col-card-overlay"></div>
+      <div class="col-card-info">
+        <span class="col-card-tag">Sovereign Series</span>
+        <div class="col-card-name">Sovereign</div>
+        <p class="col-card-desc">24K Gold, Platinum, Rose Gold. Crafted in precious metals.</p>
+      </div>
+      <div class="col-card-arrow"><svg viewBox="0 0 16 16"><path d="M2 14L14 2M14 2H6M14 2V10"/></svg></div>
+    </div>
+    <!-- Atelier -->
+    <div class="col-card" style="grid-column:2/4;">
+      <div class="col-card-bg col-card--atelier"></div>
+      <div class="col-card-phones">
+        <div class="phone-mock ph-at1" style="width:100px;height:190px;"></div>
+      </div>
+      <div class="col-card-overlay"></div>
+      <div class="col-card-info">
+        <span class="col-card-tag">Atelier Series</span>
+        <div class="col-card-name">Atelier</div>
+        <p class="col-card-desc">The rarest metals. The finest leathers. One standard.</p>
+      </div>
+      <div class="col-card-arrow"><svg viewBox="0 0 16 16"><path d="M2 14L14 2M14 2H6M14 2V10"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- MATERIALS -->
+<section class="materials">
+  <div class="materials-inner">
+    <div class="materials-left">
+      <div class="section-label reveal">Materials</div>
+      <h2 class="section-title reveal reveal-delay-1" style="color:var(--charcoal);">Materials<br>That Tell<br>A Story</h2>
+      <p class="materials-body reveal reveal-delay-2">Hand-selected. Meticulously finished. Our materials are chosen for their beauty, their strength, and the way they age with time. This is not just about luxury — it is about legacy.</p>
+      
+      <div class="materials-grid reveal reveal-delay-3">
+        <div class="mat-swatch sw-croc">
+          <div class="mat-swatch-inner"></div>
+          <div class="mat-swatch-label">Crocodile</div>
+        </div>
+        <div class="mat-swatch sw-ostrich">
+          <div class="mat-swatch-inner"></div>
+          <div class="mat-swatch-label">Ostrich</div>
+        </div>
+        <div class="mat-swatch sw-snake">
+          <div class="mat-swatch-inner"></div>
+          <div class="mat-swatch-label">Snakeskin</div>
+        </div>
+        <div class="mat-swatch sw-full">
+          <div class="mat-swatch-inner"></div>
+          <div class="mat-swatch-label">Full Grain</div>
+        </div>
+      </div>
+      <div class="mat-metals materials-grid reveal reveal-delay-4">
+        <div class="mat-swatch sw-gold">
+          <div class="mat-swatch-inner"></div>
+          <div class="mat-swatch-label">24K Gold</div>
+        </div>
+        <div class="mat-swatch sw-platinum">
+          <div class="mat-swatch-inner"></div>
+          <div class="mat-swatch-label">Platinum</div>
+        </div>
+        <div class="mat-swatch sw-rose">
+          <div class="mat-swatch-inner"></div>
+          <div class="mat-swatch-label">Rose Gold</div>
+        </div>
+        <div class="mat-swatch sw-18k">
+          <div class="mat-swatch-inner"></div>
+          <div class="mat-swatch-label">18K Gold</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="materials-right reveal reveal-delay-2">
+      <div class="mat-feature-card">
+        <div class="mat-feature-num">01</div>
+        <div class="mat-feature-title">Hand-Selected</div>
+        <p class="mat-feature-text">Every hide and metal is sourced with exacting standards. We reject the common and accept only what earns its place in a KROHN commission.</p>
+      </div>
+      <div class="mat-feature-card">
+        <div class="mat-feature-num">02</div>
+        <div class="mat-feature-title">Aged to Perfection</div>
+        <p class="mat-feature-text">Our materials are chosen for how they evolve over time — developing character and depth that no factory finish can replicate.</p>
+      </div>
+      <div class="mat-feature-card">
+        <div class="mat-feature-num">03</div>
+        <div class="mat-feature-title">Beyond Luxury</div>
+        <p class="mat-feature-text">This is not just about luxury. It is about legacy — creating something that outlasts the ordinary and becomes a mark of who you are.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLOURS -->
+<section class="colours">
+  <div class="colours-header reveal">
+    <div>
+      <div class="section-label">The Palette</div>
+      <h2 class="section-title">Colours That<br>Define Distinction</h2>
+    </div>
+    <p class="colours-body">Every colour is more than a finish. It is a statement of character, chosen not to blend in, but to stand apart. Refined. Enduring. Unmistakably KROHN.</p>
+  </div>
+
+  <div class="colour-palette reveal reveal-delay-1">
+    <div class="colour-chip cc-saffron">
+      <div class="colour-chip-inner"></div>
+      <div class="colour-chip-info">Saffron<br>Luxe</div>
+    </div>
+    <div class="colour-chip cc-blush">
+      <div class="colour-chip-inner"></div>
+      <div class="colour-chip-info">Blush<br>Rose</div>
+    </div>
+    <div class="colour-chip cc-mocha">
+      <div class="colour-chip-inner"></div>
+      <div class="colour-chip-info">Mocha<br>Reserve</div>
+    </div>
+    <div class="colour-chip cc-amethyst">
+      <div class="colour-chip-inner"></div>
+      <div class="colour-chip-info">Midnight<br>Amethyst</div>
+    </div>
+    <div class="colour-chip cc-sage">
+      <div class="colour-chip-inner"></div>
+      <div class="colour-chip-info">Sage<br>Verde</div>
+    </div>
+  </div>
+  <div class="colour-palette-row2 reveal reveal-delay-2">
+    <div class="colour-chip cc-crimson">
+      <div class="colour-chip-inner"></div>
+      <div class="colour-chip-info">Crimson<br>Royale</div>
+    </div>
+    <div class="colour-chip cc-riviera">
+      <div class="colour-chip-inner"></div>
+      <div class="colour-chip-info">Riviera<br>Cyan</div>
+    </div>
+    <div class="colour-chip cc-glacier">
+      <div class="colour-chip-inner"></div>
+      <div class="colour-chip-info">Glacier<br>Mist</div>
+    </div>
+    <div class="colour-chip cc-emerald">
+      <div class="colour-chip-inner"></div>
+      <div class="colour-chip-info">Emerald<br>Noir</div>
+    </div>
+    <div class="colour-chip cc-graphite">
+      <div class="colour-chip-inner"></div>
+      <div class="colour-chip-info">Graphite<br>Shadow</div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMISSION PROCESS -->
+<section class="commission">
+  <div class="commission-inner">
+    <div class="commission-intro">
+      <div>
+        <div class="section-label reveal">The Atelier</div>
+        <h2 class="section-title reveal reveal-delay-1">The Commission<br>Process</h2>
+        <p class="commission-body reveal reveal-delay-2">
+          Commission yours. At KROHN, every surface is your choice and every decision is yours to make. The body in metal or colour. The backplate in a material of your choosing. The buttons and camera rings curated to complete the composition.<br><br>
+          We do not offer configurations. We offer conversations — and from those conversations, we build something that has never existed before.
+        </p>
+        <a href="#" class="commission-cta reveal reveal-delay-3"><span>Begin Your Commission</span></a>
+      </div>
+      <div class="reveal reveal-delay-2" style="padding-top:60px;">
+        <!-- decorative quote -->
+        <div style="border-left:2px solid var(--gold);padding:32px 0 32px 40px;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-style:italic;color:var(--gold-light);line-height:1.4;margin-bottom:20px;">"We simply provide the canvas worthy of your masterpiece."</div>
+          <div style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:rgba(245,240,232,0.35);">The KROHN Standard</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step reveal">
+        <div class="step-dot"></div>
+        <div class="step-num">01</div>
+        <div class="step-title">Consultation</div>
+        <p class="step-text">A private appointment to discuss your vision. Materials, finishes, and configurations are explored — with no detail too small, and no standard too high.</p>
+      </div>
+      <div class="step reveal reveal-delay-1">
+        <div class="step-dot"></div>
+        <div class="step-num">02</div>
+        <div class="step-title">Selection</div>
+        <p class="step-text">Your choices are presented in hand. Swatches curated, combinations considered, configuration confirmed. Nothing proceeds until it is exactly right.</p>
+      </div>
+      <div class="step reveal reveal-delay-2">
+        <div class="step-dot"></div>
+        <div class="step-num">03</div>
+        <div class="step-title">Crafting</div>
+        <p class="step-text">Your piece enters the atelier. Hand-assembled by our artisans using precision instruments, each element fitted and finished to the standard your commission demands.</p>
+      </div>
+      <div class="step reveal reveal-delay-3">
+        <div class="step-dot"></div>
+        <div class="step-num">04</div>
+        <div class="step-title">Delivery</div>
+        <p class="step-text">Your completed piece arrives in a KROHN heirloom presentation box, delivered white-glove to you. The beginning of something that will outlast the ordinary.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOMISABILITY -->
+<section class="customise">
+  <div class="customise-inner">
+    <div class="reveal">
+      <div class="phone-diagram">
+        <div class="phone-diagram-body">
+          <div class="phone-diagram-cam">
+            <div class="cam-lens"></div>
+            <div class="cam-lens"></div>
+            <div class="cam-lens"></div>
+          </div>
+          <div class="phone-diagram-back"></div>
+        </div>
+        <!-- callouts -->
+        <div class="diagram-callout dc-cam">
+          <span class="diagram-callout-text">Camera Rings</span>
+          <div class="diagram-callout-line"></div>
+          <div class="diagram-callout-dot"></div>
+        </div>
+        <div class="diagram-callout dc-buttons">
+          <span class="diagram-callout-text">Buttons</span>
+          <div class="diagram-callout-line"></div>
+          <div class="diagram-callout-dot"></div>
+        </div>
+        <div class="diagram-callout dc-back">
+          <div class="diagram-callout-dot"></div>
+          <div class="diagram-callout-line"></div>
+          <span class="diagram-callout-text">Backplate</span>
+        </div>
+        <div class="diagram-callout dc-body">
+          <div class="diagram-callout-dot"></div>
+          <div class="diagram-callout-line"></div>
+          <span class="diagram-callout-text">Body</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="customise-right">
+      <div class="section-label reveal">Customisability</div>
+      <h2 class="section-title reveal reveal-delay-1">Every Detail.<br>Your Decision.</h2>
+      <p class="customise-body reveal reveal-delay-2">Four components. Endless combinations. The body, backplate, buttons, and camera rings — each one a canvas for your choices. We build something that has never existed before.</p>
+      <div class="custom-features reveal reveal-delay-3">
+        <div class="cf-item">
+          <div class="cf-icon"></div>
+          <div class="cf-title">Endless Combinations</div>
+          <p class="cf-desc">Every material, finish, and colour pairing creates a piece unlike any other.</p>
+        </div>
+        <div class="cf-item">
+          <div class="cf-icon"></div>
+          <div class="cf-title">Tailored for You</div>
+          <p class="cf-desc">We build conversations, not configurations. Your vision, realised.</p>
+        </div>
+        <div class="cf-item">
+          <div class="cf-icon"></div>
+          <div class="cf-title">Uncompromised Quality</div>
+          <p class="cf-desc">Hand-assembled by artisans. No detail too small. No standard too high.</p>
+        </div>
+        <div class="cf-item">
+          <div class="cf-icon"></div>
+          <div class="cf-title">Distinctly Yours</div>
+          <p class="cf-desc">Delivered in a KROHN heirloom box. The beginning of your legacy.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+  <div class="closing-rings">
+    <div class="closing-ring"></div>
+    <div class="closing-ring"></div>
+    <div class="closing-ring"></div>
+  </div>
+  <div class="closing-content reveal">
+    <div class="closing-eyebrow">Commission Yours</div>
+    <h2 class="closing-headline">We Simply Provide<br>The Canvas Worthy<br>Of Your <em>Masterpiece</em></h2>
+    <p class="closing-sub">krohnstandard.com</p>
+    <div class="closing-actions">
+      <a href="#" class="btn-primary">Begin Commission</a>
+      <a href="#" class="btn-secondary">View Collection</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">KROHN</div>
+      <p class="footer-brand-text">For those who don't follow standards — they set them. A destination where absolute perfection and timeless class converge.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Collection</div>
+      <ul class="footer-links">
+        <li><a href="#">Elysian Series</a></li>
+        <li><a href="#">Aurelian Series</a></li>
+        <li><a href="#">Sovereign Series</a></li>
+        <li><a href="#">Atelier Series</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Atelier</div>
+      <ul class="footer-links">
+        <li><a href="#">Commission Process</a></li>
+        <li><a href="#">Materials</a></li>
+        <li><a href="#">Colours</a></li>
+        <li><a href="#">Private Appointment</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="#">Studio</a></li>
+        <li><a href="#">WhatsApp</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">krohnstandard.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 KROHN. All rights reserved.</span>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

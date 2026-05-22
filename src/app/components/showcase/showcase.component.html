@@ -1,0 +1,102 @@
+<section class="collections" id="collection">
+
+  <header class="collections__head" appScrollReveal>
+    <span class="collections__eyebrow">The Collection</span>
+    <h2 class="collections__title">
+      Four series. Every craft considered.
+    </h2>
+    <p class="collections__lede">
+      Each series is limited to a single production run. When the run ends,
+      the piece retires — never re-issued, never reprinted.
+    </p>
+  </header>
+
+  <!-- Standard series -->
+  @for (series of standardSeries; track series.id; let i = $index) {
+    <article
+      class="series-row"
+      [class.series-row--reverse]="i % 2 !== 0"
+      appScrollReveal
+      [revealDelay]="i * 80"
+    >
+      <figure
+        class="series-row__media"
+        [attr.data-carousel]="series.id"
+        (mouseenter)="pauseTimer(series.id)"
+        (mouseleave)="resumeTimer(series.id)"
+      >
+        @for (img of series.images; track img.webp; let j = $index) {
+          <picture class="carousel__slide">
+            <source [srcset]="img.webp" type="image/webp">
+            <img [src]="img.png" [alt]="series.name + ' — KROHN'" class="carousel__img" draggable="false">
+          </picture>
+        }
+        <div class="series-row__placeholder" [style.background]="series.placeholder" aria-hidden="true"></div>
+        @if (series.images.length > 1) {
+          <div class="carousel__dots" role="tablist">
+            @for (img of series.images; track img.webp; let j = $index) {
+              <button
+                class="carousel__dot"
+                [class.is-active]="(activeIndex.get(series.id) ?? 0) === j"
+                (click)="goTo(series.id, j)"
+                [attr.aria-label]="'Slide ' + (j + 1)"
+                role="tab"
+              ></button>
+            }
+          </div>
+        }
+      </figure>
+
+      <div class="series-row__body">
+        <span class="series-row__label">{{ series.label }}</span>
+        <h3 class="series-row__name">{{ series.name }}</h3>
+        <p class="series-row__descriptor">{{ series.descriptor }}</p>
+      </div>
+    </article>
+  }
+
+  <!-- Sovereign series (flagship dark panels) -->
+  @for (series of sovereignSeries; track series.id; let i = $index) {
+    <article
+      class="series-row series-row--sovereign"
+      [class.series-row--reverse]="i % 2 !== 0"
+      appScrollReveal
+      [revealDelay]="i * 100"
+    >
+      <figure
+        class="series-row__media"
+        [attr.data-carousel]="series.id"
+        (mouseenter)="pauseTimer(series.id)"
+        (mouseleave)="resumeTimer(series.id)"
+      >
+        @for (img of series.images; track img.webp; let j = $index) {
+          <picture class="carousel__slide">
+            <source [srcset]="img.webp" type="image/webp">
+            <img [src]="img.png" [alt]="series.name + ' — KROHN'" class="carousel__img" draggable="false">
+          </picture>
+        }
+        <div class="series-row__placeholder" [style.background]="series.placeholder" aria-hidden="true"></div>
+        @if (series.images.length > 1) {
+          <div class="carousel__dots" role="tablist">
+            @for (img of series.images; track img.webp; let j = $index) {
+              <button
+                class="carousel__dot"
+                [class.is-active]="(activeIndex.get(series.id) ?? 0) === j"
+                (click)="goTo(series.id, j)"
+                [attr.aria-label]="'Slide ' + (j + 1)"
+                role="tab"
+              ></button>
+            }
+          </div>
+        }
+      </figure>
+
+      <div class="series-row__body">
+        <span class="series-row__label">{{ series.label }}</span>
+        <h3 class="series-row__name">{{ series.name }}</h3>
+        <p class="series-row__descriptor">{{ series.descriptor }}</p>
+      </div>
+    </article>
+  }
+
+</section>

@@ -1,0 +1,45 @@
+:host {
+  display: block;
+  height: calc(100dvh - 60px); /* subtract nav height */
+  overflow: hidden;
+}
+
+.studio-layout {
+  display: grid;
+  grid-template-columns: 1fr 22rem;
+  height: 100%;
+}
+
+.studio-canvas {
+  height: 100%;
+  background: var(--color-bone);
+  position: relative;
+}
+
+.studio-panel {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Mobile: stack canvas above panel */
+@media (max-width: 768px) {
+  :host {
+    height: auto;
+    overflow: auto;
+  }
+
+  .studio-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: 55dvh auto;
+    height: auto;
+  }
+
+  .studio-canvas {
+    height: 100%;
+  }
+
+  .studio-panel {
+    height: auto;
+    overflow: visible;
+  }
+}

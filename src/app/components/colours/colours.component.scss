@@ -1,0 +1,145 @@
+:host {
+  display: block;
+}
+
+.colours {
+  background: var(--color-charcoal-mid);
+  padding: clamp(60px, 10vw, 140px) clamp(1.5rem, 5vw, 60px);
+  overflow-x: clip;
+}
+
+.colours__header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 80px);
+  align-items: end;
+  margin-bottom: clamp(40px, 6vw, 80px);
+}
+
+.colours__label {
+  font-size: 9px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--color-gold-dim);
+  margin-bottom: 16px;
+  font-family: var(--font-sans);
+}
+
+.colours__title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.5vw, 52px);
+  font-weight: 500;
+  color: var(--color-gold);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-display);
+}
+
+.colours__body {
+  font-size: 14px;
+  line-height: 2;
+  color: rgba(28, 26, 22, 0.55);
+  font-weight: 300;
+  font-family: var(--font-sans);
+  align-self: end;
+}
+
+/* ── Palette ── */
+.colour-palette {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 3px;
+}
+
+.colour-palette--row2 {
+  margin-top: 3px;
+}
+
+.colour-chip {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  aspect-ratio: 1;
+}
+
+.colour-chip__inner {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.4s var(--ease-luxe);
+}
+
+.colour-chip:hover .colour-chip__inner {
+  transform: scale(1.06);
+}
+
+.colour-chip__phone {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(12%);
+  height: 85%;
+  width: auto;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.colour-chip:hover .colour-chip__phone {
+  transform: translateX(-50%) translateY(0);
+}
+
+.colour-chip__info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+  font-size: 8px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s;
+  line-height: 1.4;
+  font-family: var(--font-sans);
+  z-index: 2;
+}
+
+.colour-chip:hover .colour-chip__info {
+  opacity: 1;
+}
+
+/* Chip colours */
+.cc-saffron .colour-chip__inner    { background: #D4A44C; }
+.cc-blush .colour-chip__inner      { background: #E8A0A8; }
+.cc-mocha .colour-chip__inner      { background: #7A5C48; }
+.cc-amethyst .colour-chip__inner   { background: #4A3568; }
+.cc-sage .colour-chip__inner       { background: #8A9E6A; }
+.cc-crimson .colour-chip__inner    { background: #8B2635; }
+.cc-riviera .colour-chip__inner    { background: #5A9EB8; }
+.cc-glacier .colour-chip__inner    { background: #A8C8D4; }
+.cc-emerald .colour-chip__inner    { background: #1A4A2E; }
+.cc-graphite .colour-chip__inner   { background: #5A5A5A; }
+
+@media (max-width: 880px) {
+  .colours__header {
+    grid-template-columns: 1fr;
+  }
+
+  .colour-palette {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .colour-palette {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 360px) {
+  .colour-palette {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

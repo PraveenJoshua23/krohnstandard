@@ -1,0 +1,201 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.config-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 3rem 2.5rem 2.5rem;
+  border-left: 1px solid var(--color-mist);
+  background: var(--color-paper);
+  overflow-y: auto;
+}
+
+/* ── Header ─────────────────────────────── */
+
+.panel-header {
+  margin-bottom: 2.5rem;
+}
+
+.panel-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: 0 0 0.4rem;
+}
+
+.panel-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-display);
+  color: var(--color-ink);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* ── Sections ────────────────────────────── */
+
+.panel-section {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--color-mist);
+}
+
+.section-label {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: 0 0 1rem;
+}
+
+/* ── Series selector ─────────────────────── */
+
+.series-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.series-btn {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  background: none;
+  border: 1px solid var(--color-mist);
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  text-align: left;
+  width: 100%;
+
+  &:hover {
+    border-color: var(--color-ink);
+  }
+
+  &.active {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+
+    .series-name,
+    .series-label {
+      color: var(--color-bone);
+    }
+  }
+}
+
+.series-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-display);
+  color: var(--color-ink);
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.series-label {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  transition: color 0.2s ease;
+}
+
+/* ── Finish chips ────────────────────────── */
+
+.finish-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.finish-chip {
+  background: none;
+  border: 1px solid var(--color-mist);
+  padding: 0.45rem 0.9rem;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  &:hover {
+    color: var(--color-ink);
+    border-color: var(--color-ink);
+  }
+
+  &.active {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-bone);
+  }
+}
+
+/* ── Color swatches ──────────────────────── */
+
+.swatch-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.swatch {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  padding: 0;
+  outline: none;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &.selected {
+    box-shadow: 0 0 0 1px var(--color-mist), 0 0 0 3px var(--color-ink);
+    transform: scale(1.05);
+  }
+}
+
+/* ── CTA ─────────────────────────────────── */
+
+.panel-cta {
+  margin-top: auto;
+  padding-top: 2rem;
+}
+
+.cta-btn {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  background: var(--color-ink);
+  color: var(--color-bone);
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

@@ -1,0 +1,166 @@
+:host {
+  display: block;
+}
+
+// ─── Full-page stage ─────────────────────────────────────────────────────────
+
+.intro {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--color-ink);
+}
+
+// ─── Slides ──────────────────────────────────────────────────────────────────
+
+.intro__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  will-change: opacity;
+}
+
+.intro__picture {
+  position: absolute;
+  inset: 0;
+}
+
+.intro__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+// ─── Series name ─────────────────────────────────────────────────────────────
+
+.intro__name {
+  position: absolute;
+  bottom: clamp(5.5rem, 11vh, 9rem);
+  left: clamp(2rem, 5vw, 5rem);
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1;
+  z-index: 1;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+
+// ─── Vignette overlay ────────────────────────────────────────────────────────
+
+.intro::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, transparent 30%),
+    linear-gradient(to top,    rgba(0,0,0,0.45) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+// ─── Dot navigation ──────────────────────────────────────────────────────────
+
+.intro__dots {
+  position: absolute;
+  bottom: clamp(3.5rem, 7vh, 5.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.intro__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition:
+    background 0.4s var(--ease-luxe),
+    transform 0.4s var(--ease-luxe);
+
+  &.is-active {
+    background: rgba(255, 255, 255, 0.95);
+    transform: scale(1.5);
+  }
+}
+
+// ─── Prev / Next arrows ──────────────────────────────────────────────────────
+
+.intro__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  transition:
+    background 0.35s var(--ease-luxe),
+    border-color 0.35s var(--ease-luxe),
+    color 0.35s var(--ease-luxe);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.55);
+    color: #fff;
+  }
+}
+
+.intro__arrow--prev {
+  left: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.intro__arrow--next {
+  right: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+// ─── Scroll hint ─────────────────────────────────────────────────────────────
+
+.intro__scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  z-index: 2;
+}
+
+.intro__scroll-line {
+  width: 1px;
+  height: 2rem;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), transparent);
+  animation: scroll-drop 2.4s var(--ease-luxe) infinite;
+  transform-origin: top;
+}
+
+@keyframes scroll-drop {
+  0%   { transform: scaleY(0); opacity: 0; }
+  40%  { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1) translateY(110%); opacity: 0; }
+}

@@ -1,0 +1,57 @@
+<section class="commission" id="atelier">
+  <div class="commission__inner">
+    <div class="commission__intro">
+      <div>
+        <div class="commission__label" appScrollReveal>The Atelier</div>
+        <h2 class="commission__title" appScrollReveal [revealDelay]="100">The Commission<br>Process</h2>
+        <p class="commission__body" appScrollReveal [revealDelay]="200">
+          Commission yours. At KROHN, every surface is your choice and every decision is yours to make. The body in metal or colour. The backplate in a material of your choosing. The buttons and camera rings curated to complete the composition.<br><br>
+          We do not offer configurations. We offer conversations — and from those conversations, we build something that has never existed before.
+        </p>
+        <button
+          type="button"
+          class="commission__cta"
+          appScrollReveal
+          [revealDelay]="300"
+          (click)="openCommissionModal()"
+        >
+          <span>Begin Your Commission</span>
+        </button>
+      </div>
+
+      <div class="commission__quote" appScrollReveal [revealDelay]="200">
+        <div class="commission__quote-inner">
+          <p class="commission__quote-text">"We simply provide the canvas worthy of your masterpiece."</p>
+          <div class="commission__quote-attr">The KROHN Standard</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step" appScrollReveal>
+        <div class="step__dot"></div>
+        <div class="step__num">01</div>
+        <div class="step__title">Consultation</div>
+        <p class="step__text">A private appointment to discuss your vision. Materials, finishes, and configurations are explored — with no detail too small, and no standard too high.</p>
+      </div>
+      <div class="step" appScrollReveal [revealDelay]="100">
+        <div class="step__dot"></div>
+        <div class="step__num">02</div>
+        <div class="step__title">Selection</div>
+        <p class="step__text">Your choices are presented in hand. Swatches curated, combinations considered, configuration confirmed. Nothing proceeds until it is exactly right.</p>
+      </div>
+      <div class="step" appScrollReveal [revealDelay]="200">
+        <div class="step__dot"></div>
+        <div class="step__num">03</div>
+        <div class="step__title">Crafting</div>
+        <p class="step__text">Your piece enters the atelier. Hand-assembled by our artisans using precision instruments, each element fitted and finished to the standard your commission demands.</p>
+      </div>
+      <div class="step" appScrollReveal [revealDelay]="300">
+        <div class="step__dot"></div>
+        <div class="step__num">04</div>
+        <div class="step__title">Delivery</div>
+        <p class="step__text">Your completed piece arrives in a KROHN heirloom presentation box, delivered white-glove to you. The beginning of something that will outlast the ordinary.</p>
+      </div>
+    </div>
+  </div>
+</section>

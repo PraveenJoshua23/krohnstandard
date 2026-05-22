@@ -1,0 +1,126 @@
+<aside class="config-panel">
+  <header class="panel-header">
+    <p class="panel-eyebrow">Studio</p>
+    <h1 class="panel-title">Configure</h1>
+  </header>
+
+  <!-- Series selector -->
+  <section class="panel-section">
+    <p class="section-label">Series</p>
+    <div class="series-selector">
+      @for (s of series; track s.id) {
+        <button
+          class="series-btn"
+          [class.active]="activeSeries.id === s.id"
+          (click)="selectSeries(s)"
+        >
+          <span class="series-name">{{ s.name }}</span>
+          <span class="series-label">{{ s.label }}</span>
+        </button>
+      }
+    </div>
+  </section>
+
+  <!-- Body: colour palette (Elysian / Aurelian) -->
+  @if (activeSeries.bodySection === 'color-palette') {
+    <section class="panel-section">
+      <p class="section-label">Colour</p>
+      <div class="swatch-grid">
+        @for (swatch of colorPalette; track swatch.hex) {
+          <button
+            class="swatch"
+            [class.selected]="activeBodyColor === swatch.hex"
+            [style.background]="swatch.hex"
+            [title]="swatch.label"
+            (click)="selectBodyColor(swatch.hex)"
+            [attr.aria-label]="swatch.label"
+          ></button>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- Body: metal finish chips (Sovereign / Atelier) -->
+  @if (activeSeries.bodySection === 'metal-chips') {
+    <section class="panel-section">
+      <p class="section-label">Metal</p>
+      <div class="finish-chips">
+        @for (chip of metalChips; track chip.id) {
+          <button
+            class="finish-chip"
+            [class.active]="activeBodyFinish === chip.id"
+            (click)="selectBodyFinish(chip.id)"
+          >
+            {{ chip.label }}
+          </button>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- Back: glass colour (Elysian) -->
+  @if (activeSeries.backSection === 'glass-color') {
+    <section class="panel-section">
+      <p class="section-label">Back Glass</p>
+      <div class="swatch-grid">
+        @for (swatch of colorPalette; track swatch.hex) {
+          <button
+            class="swatch"
+            [class.selected]="backplateColor === swatch.hex"
+            [style.background]="swatch.hex"
+            [title]="swatch.label"
+            (click)="selectBackGlassColor(swatch.hex)"
+            [attr.aria-label]="swatch.label"
+          ></button>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- Back: leather or carbon (Aurelian / Atelier) -->
+  @if (activeSeries.backSection === 'leather-carbon') {
+    <section class="panel-section">
+      <p class="section-label">Back</p>
+      <div class="finish-chips">
+        <button
+          class="finish-chip"
+          [class.active]="activeBackMaterial === 'leather'"
+          (click)="selectBackMaterial('leather')"
+        >
+          Leather
+        </button>
+        <button
+          class="finish-chip"
+          [class.active]="activeBackMaterial === 'carbon'"
+          (click)="selectBackMaterial('carbon')"
+        >
+          Carbon
+        </button>
+      </div>
+    </section>
+  }
+
+  <!-- Antenna -->
+  <section class="panel-section">
+    <p class="section-label">Antenna</p>
+    <div class="swatch-grid">
+      @for (swatch of antennaColors; track swatch.hex) {
+        <button
+          class="swatch"
+          [class.selected]="antennaColor === swatch.hex"
+          [style.background]="swatch.hex"
+          [title]="swatch.label"
+          (click)="selectAntennaColor(swatch.hex)"
+          [attr.aria-label]="swatch.label"
+        ></button>
+      }
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="panel-cta">
+    <a href="mailto:studio&#64;krohn.com" class="cta-btn">
+      Begin Commission
+    </a>
+  </div>
+</aside>

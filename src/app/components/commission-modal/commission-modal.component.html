@@ -1,0 +1,192 @@
+<div class="cm-backdrop" #backdrop (click)="onBackdropClick($event)" role="presentation">
+  <div
+    class="cm-panel"
+    #panel
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cm-title"
+  >
+    <!-- Close button -->
+    <button class="cm-close" type="button" (click)="close()" aria-label="Close commission form">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <line x1="1" y1="1" x2="13" y2="13" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="13" y1="1" x2="1" y2="13" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+    </button>
+
+    <!-- ── SUCCESS STATE ───────────────────────────────────────────────── -->
+    @if (status() === 'success') {
+      <div class="cm-success">
+        <div class="cm-success__icon" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="15" stroke="#C9A84C" stroke-width="1"/>
+            <polyline points="9,16 14,21 23,11" stroke="#C9A84C" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="cm-success__eyebrow">Inquiry Received</div>
+        <h2 class="cm-success__heading" id="cm-title">Your Vision<br>Has Been Noted.</h2>
+        <p class="cm-success__body">
+          Our atelier will be in touch within 24–48 hours to begin your commission
+          conversation. We look forward to bringing your vision to life.
+        </p>
+        <button class="cm-btn" type="button" (click)="close()">Close</button>
+      </div>
+    }
+
+    <!-- ── FORM STATE ─────────────────────────────────────────────────── -->
+    @else {
+      <div class="cm-header">
+        <div class="cm-eyebrow">Commission Yours</div>
+        <h2 class="cm-heading" id="cm-title">Begin Your<br>Commission</h2>
+        <p class="cm-intro">
+          Every surface. Every detail. Every decision is yours — we simply provide the canvas
+          worthy of your masterpiece.
+        </p>
+      </div>
+
+      <form class="cm-form" (submit)="$event.preventDefault(); submit()" novalidate>
+
+        <!-- Row 1: Name + Email -->
+        <div class="cm-row">
+          <div class="cm-field" [class.cm-field--error]="touched() && !nameValid()">
+            <label class="cm-label" for="cm-name">
+              Full Name <span class="cm-required" aria-hidden="true">*</span>
+            </label>
+            <input
+              id="cm-name"
+              type="text"
+              class="cm-input"
+              placeholder="Your name"
+              #nameInput
+              [value]="name()"
+              (input)="name.set(nameInput.value)"
+              [attr.disabled]="status() === 'submitting' ? '' : null"
+              autocomplete="name"
+            />
+            @if (touched() && !nameValid()) {
+              <span class="cm-error-msg" role="alert">Please enter your full name</span>
+            }
+          </div>
+
+          <div class="cm-field" [class.cm-field--error]="touched() && !emailValid()">
+            <label class="cm-label" for="cm-email">
+              Email <span class="cm-required" aria-hidden="true">*</span>
+            </label>
+            <input
+              id="cm-email"
+              type="email"
+              class="cm-input"
+              placeholder="your@email.com"
+              #emailInput
+              [value]="email()"
+              (input)="email.set(emailInput.value)"
+              [attr.disabled]="status() === 'submitting' ? '' : null"
+              autocomplete="email"
+            />
+            @if (touched() && !emailValid()) {
+              <span class="cm-error-msg" role="alert">Please enter a valid email</span>
+            }
+          </div>
+        </div>
+
+        <!-- Row 2: Phone + Collection -->
+        <div class="cm-row">
+          <div class="cm-field">
+            <label class="cm-label" for="cm-phone">
+              Phone <span class="cm-optional">(optional)</span>
+            </label>
+            <input
+              id="cm-phone"
+              type="tel"
+              class="cm-input"
+              placeholder="+1 000 000 0000"
+              #phoneInput
+              [value]="phone()"
+              (input)="phone.set(phoneInput.value)"
+              [attr.disabled]="status() === 'submitting' ? '' : null"
+              autocomplete="tel"
+            />
+          </div>
+
+          <div class="cm-field">
+            <label class="cm-label" for="cm-collection">
+              Preferred Collection <span class="cm-optional">(optional)</span>
+            </label>
+            <div class="cm-select-wrap">
+              <select
+                id="cm-collection"
+                class="cm-select"
+                #collectionSelect
+                [value]="collection()"
+                (change)="collection.set(collectionSelect.value)"
+                [attr.disabled]="status() === 'submitting' ? '' : null"
+              >
+                <option value="">No preference</option>
+                @for (c of collections; track c) {
+                  <option [value]="c">{{ c }}</option>
+                }
+              </select>
+              <span class="cm-select-arrow" aria-hidden="true">
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+                  <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.2"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 4: Message -->
+        <div class="cm-field" [class.cm-field--error]="touched() && !messageValid()">
+          <label class="cm-label" for="cm-message">
+            Your Vision <span class="cm-required" aria-hidden="true">*</span>
+          </label>
+          <textarea
+            id="cm-message"
+            class="cm-textarea"
+            placeholder="Describe your vision — the materials, finishes, and details that matter to you."
+            rows="4"
+            #messageInput
+            [value]="message()"
+            (input)="message.set(messageInput.value)"
+            [attr.disabled]="status() === 'submitting' ? '' : null"
+          ></textarea>
+          @if (touched() && !messageValid()) {
+            <span class="cm-error-msg" role="alert">Please share your vision (at least 10 characters)</span>
+          }
+        </div>
+
+        <!-- Error banner -->
+        @if (status() === 'error') {
+          <div class="cm-form-error" role="alert">
+            Something went wrong. Please try again, or reach us directly at
+            <a href="mailto:atelier@krohnstandard.com">atelier&#64;krohnstandard.com</a>
+          </div>
+        }
+
+        <!-- Submit -->
+        <div class="cm-actions">
+          <button
+            type="submit"
+            class="cm-btn"
+            [class.cm-btn--loading]="status() === 'submitting'"
+            [attr.disabled]="status() === 'submitting' ? '' : null"
+            [attr.aria-busy]="status() === 'submitting'"
+          >
+            @if (status() === 'submitting') {
+              <span class="cm-spinner" aria-hidden="true"></span>
+              <span>Submitting…</span>
+            } @else {
+              <span>Begin Commission</span>
+            }
+          </button>
+          <p class="cm-disclaimer">
+            Your inquiry is private and will never be shared.
+          </p>
+        </div>
+
+      </form>
+    }
+  </div>
+</div>

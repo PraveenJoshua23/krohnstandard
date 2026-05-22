@@ -1,0 +1,244 @@
+:host {
+  display: block;
+}
+
+.commission {
+  background: var(--color-forest);
+  padding: clamp(60px, 10vw, 140px) clamp(1.5rem, 5vw, 60px);
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    border: 1px solid rgba(201, 168, 76, 0.08);
+    pointer-events: none;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    left: -100px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    border: 1px solid rgba(201, 168, 76, 0.05);
+    pointer-events: none;
+  }
+}
+
+.commission__inner {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.commission__label {
+  font-size: 9px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 24px;
+  font-family: var(--font-sans);
+}
+
+.commission__title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.5vw, 52px);
+  font-weight: 500;
+  color: var(--color-gold);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-display);
+  margin-bottom: 32px;
+}
+
+.commission__intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 8vw, 100px);
+  align-items: center;
+  margin-bottom: clamp(60px, 8vw, 100px);
+}
+
+.commission__body {
+  font-size: 14px;
+  line-height: 2;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 300;
+  font-family: var(--font-sans);
+  margin-bottom: 40px;
+}
+
+/* CTA button with slide-fill animation */
+.commission__cta {
+  display: inline-block;
+  padding: 16px 48px;
+  border: 1px solid #000;
+  background: #000;
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.4s, color 0.4s;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-sans);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #333;
+    transform: translateX(-101%);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  &:hover::before {
+    transform: translateX(0);
+  }
+
+  &:hover span {
+    color: #fff;
+  }
+
+  span {
+    position: relative;
+    z-index: 1;
+    transition: color 0.4s;
+  }
+}
+
+/* Decorative quote */
+.commission__quote {
+  padding-top: 60px;
+}
+
+.commission__quote-inner {
+  border-left: 2px solid var(--color-gold);
+  padding: 32px 0 32px 40px;
+}
+
+.commission__quote-text {
+  font-family: var(--font-cormorant);
+  font-size: 28px;
+  font-style: italic;
+  color: var(--color-gold-light);
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+.commission__quote-attr {
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.35);
+  font-family: var(--font-sans);
+}
+
+/* ── Steps ── */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(201, 168, 76, 0.3),
+      rgba(201, 168, 76, 0.3),
+      transparent
+    );
+  }
+}
+
+.step {
+  padding: 0 20px;
+  position: relative;
+  text-align: center;
+}
+
+.step__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2px solid var(--color-gold);
+  background: var(--color-forest);
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.step__num {
+  font-family: var(--font-display);
+  font-size: 72px;
+  font-weight: 300;
+  color: rgba(201, 168, 76, 0.5);
+  line-height: 1;
+  margin-bottom: 32px;
+}
+
+.step__title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-gold-light);
+  margin-bottom: 16px;
+  letter-spacing: var(--tracking-display);
+}
+
+.step__text {
+  font-size: 12px;
+  color: rgba(245, 240, 232, 0.5);
+  line-height: 1.9;
+  font-weight: 300;
+  font-family: var(--font-sans);
+}
+
+@media (max-width: 880px) {
+  .commission__intro {
+    grid-template-columns: 1fr;
+  }
+
+  .commission__quote {
+    padding-top: 0;
+  }
+
+  .steps-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+
+    &::before {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .steps-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .commission__cta {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,0 +1,126 @@
+:host {
+  display: block;
+}
+
+.manifesto {
+  background: var(--color-forest);
+  position: relative;
+  min-height: 100dvh;
+  padding: 72px 0 72px clamp(1.5rem, 5vw, 60px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  &::before {
+    content: 'KROHN';
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: var(--font-sans);
+    font-size: 200px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: rgba(201, 168, 76, 0.06);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+}
+
+/* Left content — max 48% so image has room */
+.manifesto__left {
+  position: relative;
+  z-index: 1;
+  width: min(48%, 560px);
+  padding-right: 2rem;
+}
+
+.manifesto__label {
+  font-size: 9px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 28px;
+  font-family: var(--font-sans);
+}
+
+.manifesto__headline {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 64px);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--color-gold);
+  margin-bottom: 32px;
+  letter-spacing: var(--tracking-display);
+
+  strong {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--color-gold-light);
+  }
+}
+
+.manifesto__divider {
+  width: 60px;
+  height: 1px;
+  background: var(--color-gold);
+  margin-bottom: 32px;
+}
+
+.manifesto__body {
+  font-size: 14px;
+  line-height: 2;
+  color: rgba(0, 0, 0, 0.65);
+  font-weight: 300;
+  max-width: 420px;
+  font-family: var(--font-sans);
+
+  strong {
+    color: var(--color-cream);
+    font-weight: 400;
+  }
+}
+
+/* ── Image — absolutely pinned to the right ── */
+.manifesto__right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 54%;
+}
+
+.manifesto__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* shift left so model's full body (incl. left shoulder) is visible */
+  object-position: 0% top;
+  display: block;
+  user-select: none;
+}
+
+@media (max-width: 880px) {
+  .manifesto {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 52px clamp(1.5rem, 5vw, 40px) 0;
+    min-height: unset;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .manifesto__left {
+    width: 100%;
+    padding-right: 0;
+  }
+
+  .manifesto__right {
+    position: relative;
+    width: 100%;
+    height: clamp(300px, 80vw, 480px);
+    margin-top: 2.5rem;
+  }
+}

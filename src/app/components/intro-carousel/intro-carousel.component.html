@@ -1,0 +1,45 @@
+<section #section class="intro" (mouseenter)="pause()" (mouseleave)="resume()">
+
+  @for (slide of slides; track slide.alt; let i = $index) {
+    <div class="intro__slide">
+      <picture class="intro__picture">
+        @if (slide.webp) {
+          <source [srcset]="slide.webp" type="image/webp" />
+        }
+        <img [src]="slide.src" [alt]="slide.alt" draggable="false" class="intro__img" />
+      </picture>
+      <span class="intro__name">{{ slide.name }}</span>
+    </div>
+  }
+
+  <button class="intro__arrow intro__arrow--prev" (click)="prev()" aria-label="Previous slide">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <button class="intro__arrow intro__arrow--next" (click)="next()" aria-label="Next slide">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <div class="intro__dots" role="tablist" aria-label="Slide navigation">
+    @for (slide of slides; track slide.alt; let i = $index) {
+      <button
+        class="intro__dot"
+        [class.is-active]="activeIndex === i"
+        (click)="goTo(i)"
+        [attr.aria-label]="'Slide ' + (i + 1)"
+        role="tab"
+        [attr.aria-selected]="activeIndex === i"
+      ></button>
+    }
+  </div>
+
+  <div class="intro__scroll-hint" aria-hidden="true">
+    <span>Scroll</span>
+    <span class="intro__scroll-line"></span>
+  </div>
+
+</section>

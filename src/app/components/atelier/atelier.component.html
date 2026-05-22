@@ -1,0 +1,18 @@
+<section class="atelier" id="atelier">
+  <header class="atelier__head" appScrollReveal>
+    <span class="eyebrow">Atelier</span>
+    <h2 class="atelier__title">
+      Four steps, unhurried.
+    </h2>
+  </header>
+
+  <ol class="atelier__steps">
+    @for (step of steps; track step.n; let i = $index) {
+      <li class="step" appScrollReveal [revealDelay]="i * 120">
+        <span class="step__n">Nº {{ step.n }}</span>
+        <h3 class="step__title">{{ step.title }}</h3>
+        <p class="step__copy">{{ step.copy }}</p>
+      </li>
+    }
+  </ol>
+</section>

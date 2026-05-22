@@ -1,0 +1,34 @@
+<div class="cp" [style.--cp-bg]="series.theme.panelBg" [style.--cp-text]="series.theme.textColor" [style.--cp-accent]="series.theme.accentColor">
+
+  <div class="cp__left">
+    <div class="cp__body">
+      <span #label class="cp__label">{{ series.label }}</span>
+      <h2 #name class="cp__name">{{ series.name }}</h2>
+      <p #descriptor class="cp__descriptor">{{ series.descriptor }}</p>
+
+      @if (series.images.length > 1) {
+        <div #dots class="cp__dots" role="tablist">
+          @for (img of series.images; track $index) {
+            <button
+              class="cp__dot"
+              [class.is-active]="activeIndex === $index"
+              (click)="goTo($index)"
+              [attr.aria-label]="'Image ' + ($index + 1)"
+              role="tab"
+            ></button>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <figure #imagePanel class="cp__right" (mouseenter)="pauseTimer()" (mouseleave)="resumeTimer()">
+    @for (img of series.images; track $index) {
+      <picture class="cp__slide">
+        <source [srcset]="img.webp" type="image/webp" />
+        <img [src]="img.png" [alt]="series.name" draggable="false" class="cp__img" />
+      </picture>
+    }
+  </figure>
+
+</div>
