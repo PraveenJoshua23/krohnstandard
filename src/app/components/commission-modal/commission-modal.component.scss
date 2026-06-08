@@ -315,6 +315,79 @@
   to { transform: rotate(360deg); }
 }
 
+// ── Mobile ────────────────────────────────────────────────────────────────────
+// On iOS Safari, a position:fixed backdrop with overflow-y:auto doesn't scroll
+// reliably when body { overflow: hidden } is set. The fix is to make the PANEL
+// the scroll container, capped at the available viewport height.
+
+@media (max-width: 640px) {
+  .cm-backdrop {
+    padding: 0;
+    // display: flex is intentionally omitted — GSAP sets this in animateIn()
+    // so that display:none (the default) is not overridden on page load.
+    align-items: flex-end; // panel anchors to bottom — feels like a sheet
+  }
+
+  .cm-panel {
+    max-height: 92dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 32px 20px 40px;
+    // Rounded top corners only — bottom flush with screen edge
+    border-radius: 16px 16px 0 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .cm-close {
+    top: 16px;
+    right: 16px;
+  }
+
+  // Drag handle hint at the top of the sheet
+  .cm-panel::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+    margin: 0 auto 28px;
+  }
+
+  .cm-heading {
+    font-size: clamp(26px, 7vw, 36px);
+    margin: 0 0 14px;
+  }
+
+  .cm-intro {
+    font-size: 12px;
+    margin: 0 0 28px;
+    padding-bottom: 22px;
+    max-width: 100%;
+  }
+
+  .cm-form {
+    gap: 20px;
+  }
+
+  // Full-width submit button — easier to tap
+  .cm-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 16px 24px;
+  }
+
+  .cm-success__body {
+    max-width: 100%;
+  }
+}
+
 // ── Success state ─────────────────────────────────────────────────────────────
 
 .cm-success {

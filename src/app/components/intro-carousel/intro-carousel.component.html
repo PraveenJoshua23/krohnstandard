@@ -1,45 +1,92 @@
-<section #section class="intro" (mouseenter)="pause()" (mouseleave)="resume()">
+<!--
+  Outer wrapper: 400 vh — provides the scroll distance that drives the sequence.
+  Inner stage:  position sticky — stays pinned at the top of the viewport while
+                the wrapper scrolls beneath it.
+-->
+<div class="hs" #wrapper>
+  <div class="hs__stage">
 
-  @for (slide of slides; track slide.alt; let i = $index) {
-    <div class="intro__slide">
-      <picture class="intro__picture">
-        @if (slide.webp) {
-          <source [srcset]="slide.webp" type="image/webp" />
-        }
-        <img [src]="slide.src" [alt]="slide.alt" draggable="false" class="intro__img" />
-      </picture>
-      <span class="intro__name">{{ slide.name }}</span>
-    </div>
-  }
+    <!-- ── Slides ──────────────────────────────────────────────────────────── -->
+    @for (slide of slides; track slide.name; let i = $index) {
+      <div class="hs__slide" #slideEl>
 
-  <button class="intro__arrow intro__arrow--prev" (click)="prev()" aria-label="Previous slide">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </button>
+        <!-- Background image -->
+        <picture class="hs__picture">
+          <img
+            [src]="slide.src"
+            [alt]="slide.alt"
+            class="hs__img"
+            draggable="false"
+            [attr.loading]="i === 0 ? 'eager' : 'lazy'"
+            [attr.fetchpriority]="i === 0 ? 'high' : 'auto'"
+          />
+        </picture>
 
-  <button class="intro__arrow intro__arrow--next" (click)="next()" aria-label="Next slide">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </button>
+        <!-- Dark gradient vignette (top + bottom + left edge) -->
+        <div class="hs__vignette" aria-hidden="true"></div>
 
-  <div class="intro__dots" role="tablist" aria-label="Slide navigation">
-    @for (slide of slides; track slide.alt; let i = $index) {
-      <button
-        class="intro__dot"
-        [class.is-active]="activeIndex === i"
-        (click)="goTo(i)"
-        [attr.aria-label]="'Slide ' + (i + 1)"
-        role="tab"
-        [attr.aria-selected]="activeIndex === i"
-      ></button>
+        <!-- Film-grain texture -->
+        <div class="hs__grain" aria-hidden="true"></div>
+
+        <!-- Per-slide text content -->
+        <div class="hs__content">
+
+          <div class="hs__top"></div>
+
+          <!-- Bottom row: large name + descriptor + counter -->
+          <div class="hs__bottom">
+            <div class="hs__text">
+              <h2 class="hs__name" #nameEl>{{ slide.name }}</h2>
+              <p class="hs__descriptor" #descEl>{{ slide.descriptor }}</p>
+            </div>
+            <div class="hs__count" aria-hidden="true">{{ slide.number }}</div>
+          </div>
+
+        </div>
+
+      </div>
     }
-  </div>
 
-  <div class="intro__scroll-hint" aria-hidden="true">
-    <span>Scroll</span>
-    <span class="intro__scroll-line"></span>
-  </div>
+    <!-- ── Prev / Next navigation ─────────────────────────────────────────── -->
+    <div class="hs__nav-arrows" role="group" aria-label="Slide navigation">
+      <button
+        type="button"
+        class="hs__arrow"
+        (click)="prevSlide()"
+        [attr.aria-disabled]="activeIndex() === 0"
+        [attr.disabled]="activeIndex() === 0 ? '' : null"
+        aria-label="Previous slide"
+      >
+        <svg width="12" height="7" viewBox="0 0 12 7" fill="none" aria-hidden="true">
+          <path d="M1 6L6 1L11 6" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button
+        type="button"
+        class="hs__arrow"
+        (click)="nextSlide()"
+        [attr.aria-disabled]="activeIndex() === slides.length - 1"
+        [attr.disabled]="activeIndex() === slides.length - 1 ? '' : null"
+        aria-label="Next slide"
+      >
+        <svg width="12" height="7" viewBox="0 0 12 7" fill="none" aria-hidden="true">
+          <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
 
-</section>
+    <!-- ── Progress bar ───────────────────────────────────────────────────── -->
+    <div class="hs__progress" aria-hidden="true">
+      <div class="hs__progress-fill" #progressFill></div>
+    </div>
+
+    <!-- ── Scroll hint ─────────────────────────────────────────────────────── -->
+    <div class="hs__scroll-hint" #scrollHint aria-hidden="true">
+      <span class="hs__scroll-text">Scroll</span>
+      <span class="hs__scroll-line"></span>
+    </div>
+
+  </div>
+</div>

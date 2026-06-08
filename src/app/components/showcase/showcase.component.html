@@ -28,7 +28,7 @@
         @for (img of series.images; track img.webp; let j = $index) {
           <picture class="carousel__slide">
             <source [srcset]="img.webp" type="image/webp">
-            <img [src]="img.png" [alt]="series.name + ' — KROHN'" class="carousel__img" draggable="false">
+            <img [src]="img.png" [alt]="series.name + ' — KROHN'" class="carousel__img" draggable="false" loading="lazy">
           </picture>
         }
         <div class="series-row__placeholder" [style.background]="series.placeholder" aria-hidden="true"></div>
@@ -72,7 +72,7 @@
         @for (img of series.images; track img.webp; let j = $index) {
           <picture class="carousel__slide">
             <source [srcset]="img.webp" type="image/webp">
-            <img [src]="img.png" [alt]="series.name + ' — KROHN'" class="carousel__img" draggable="false">
+            <img [src]="img.png" [alt]="series.name + ' — KROHN'" class="carousel__img" draggable="false" loading="lazy">
           </picture>
         }
         <div class="series-row__placeholder" [style.background]="series.placeholder" aria-hidden="true"></div>

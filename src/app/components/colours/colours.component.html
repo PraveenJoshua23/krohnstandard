@@ -7,59 +7,126 @@
     <p class="colours__body">Every colour is more than a finish. It is a statement of character, chosen not to blend in, but to stand apart. Refined. Enduring. Unmistakably KROHN.</p>
   </div>
 
-  <div class="colour-palette" appScrollReveal [revealDelay]="100">
-    <div class="colour-chip cc-saffron">
-      <div class="colour-chip__inner"></div>
-      <img src="images/colored-phones/safron-luxe.png" alt="" class="colour-chip__phone" draggable="false" />
-      <div class="colour-chip__info">Saffron<br>Luxe</div>
+  <!-- ── Desktop layout: two rows of 5 ──────────────────────────────────────── -->
+  <div class="palette-desktop" aria-hidden="false">
+    <div class="colour-palette" appScrollReveal [revealDelay]="100">
+      <div class="colour-chip cc-saffron">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/safron-luxe.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Saffron<br>Luxe</div>
+      </div>
+      <div class="colour-chip cc-blush">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/blush-rose.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Blush<br>Rose</div>
+      </div>
+      <div class="colour-chip cc-mocha">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/mocha-reserve.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Mocha<br>Reserve</div>
+      </div>
+      <div class="colour-chip cc-amethyst">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/midnight-amethyst.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Midnight<br>Amethyst</div>
+      </div>
+      <div class="colour-chip cc-sage">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/sage-verde.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Sage<br>Verde</div>
+      </div>
     </div>
-    <div class="colour-chip cc-blush">
-      <div class="colour-chip__inner"></div>
-      <img src="images/colored-phones/blush-rose.png" alt="" class="colour-chip__phone" draggable="false" />
-      <div class="colour-chip__info">Blush<br>Rose</div>
-    </div>
-    <div class="colour-chip cc-mocha">
-      <div class="colour-chip__inner"></div>
-      <img src="images/colored-phones/mocha-reserve.png" alt="" class="colour-chip__phone" draggable="false" />
-      <div class="colour-chip__info">Mocha<br>Reserve</div>
-    </div>
-    <div class="colour-chip cc-amethyst">
-      <div class="colour-chip__inner"></div>
-      <img src="images/colored-phones/midnight-amethyst.png" alt="" class="colour-chip__phone" draggable="false" />
-      <div class="colour-chip__info">Midnight<br>Amethyst</div>
-    </div>
-    <div class="colour-chip cc-sage">
-      <div class="colour-chip__inner"></div>
-      <img src="images/colored-phones/sage-verde.png" alt="" class="colour-chip__phone" draggable="false" />
-      <div class="colour-chip__info">Sage<br>Verde</div>
+
+    <div class="colour-palette colour-palette--row2" appScrollReveal [revealDelay]="200">
+      <div class="colour-chip cc-crimson">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/crimson-royale.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Crimson<br>Royale</div>
+      </div>
+      <div class="colour-chip cc-riviera">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/riviera-cyan.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Riviera<br>Cyan</div>
+      </div>
+      <div class="colour-chip cc-glacier">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/glacier-mist.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Glacier<br>Mist</div>
+      </div>
+      <div class="colour-chip cc-emerald">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/emerald-noir.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Emerald<br>Noir</div>
+      </div>
+      <div class="colour-chip cc-graphite">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/graphite-shadow.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Graphite<br>Shadow</div>
+      </div>
     </div>
   </div>
 
-  <div class="colour-palette colour-palette--row2" appScrollReveal [revealDelay]="200">
-    <div class="colour-chip cc-crimson">
-      <div class="colour-chip__inner"></div>
-      <img src="images/colored-phones/crimson-royale.png" alt="" class="colour-chip__phone" draggable="false" />
-      <div class="colour-chip__info">Crimson<br>Royale</div>
+  <!-- ── Mobile layout: horizontal scroll strip ──────────────────────────────── -->
+  <div class="palette-mobile" aria-hidden="true" appScrollReveal [revealDelay]="100">
+    <div class="colour-strip" #colourStrip>
+      <div class="colour-chip cc-saffron">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/safron-luxe.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Saffron<br>Luxe</div>
+      </div>
+      <div class="colour-chip cc-blush">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/blush-rose.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Blush<br>Rose</div>
+      </div>
+      <div class="colour-chip cc-mocha">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/mocha-reserve.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Mocha<br>Reserve</div>
+      </div>
+      <div class="colour-chip cc-amethyst">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/midnight-amethyst.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Midnight<br>Amethyst</div>
+      </div>
+      <div class="colour-chip cc-sage">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/sage-verde.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Sage<br>Verde</div>
+      </div>
+      <div class="colour-chip cc-crimson">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/crimson-royale.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Crimson<br>Royale</div>
+      </div>
+      <div class="colour-chip cc-riviera">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/riviera-cyan.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Riviera<br>Cyan</div>
+      </div>
+      <div class="colour-chip cc-glacier">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/glacier-mist.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Glacier<br>Mist</div>
+      </div>
+      <div class="colour-chip cc-emerald">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/emerald-noir.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Emerald<br>Noir</div>
+      </div>
+      <div class="colour-chip cc-graphite">
+        <div class="colour-chip__inner"></div>
+        <img src="images/colored-phones/graphite-shadow.png" alt="" class="colour-chip__phone" draggable="false" />
+        <div class="colour-chip__info">Graphite<br>Shadow</div>
+      </div>
     </div>
-    <div class="colour-chip cc-riviera">
-      <div class="colour-chip__inner"></div>
-      <img src="images/colored-phones/riviera-cyan.png" alt="" class="colour-chip__phone" draggable="false" />
-      <div class="colour-chip__info">Riviera<br>Cyan</div>
-    </div>
-    <div class="colour-chip cc-glacier">
-      <div class="colour-chip__inner"></div>
-      <img src="images/colored-phones/glacier-mist.png" alt="" class="colour-chip__phone" draggable="false" />
-      <div class="colour-chip__info">Glacier<br>Mist</div>
-    </div>
-    <div class="colour-chip cc-emerald">
-      <div class="colour-chip__inner"></div>
-      <img src="images/colored-phones/emerald-noir.png" alt="" class="colour-chip__phone" draggable="false" />
-      <div class="colour-chip__info">Emerald<br>Noir</div>
-    </div>
-    <div class="colour-chip cc-graphite">
-      <div class="colour-chip__inner"></div>
-      <img src="images/colored-phones/graphite-shadow.png" alt="" class="colour-chip__phone" draggable="false" />
-      <div class="colour-chip__info">Graphite<br>Shadow</div>
+
+    <!-- Scroll hint dots -->
+    <div class="strip-dots" aria-hidden="true">
+      @for (i of [0,1,2,3,4,5,6,7,8,9]; track i) {
+        <span class="strip-dot" #stripDot></span>
+      }
     </div>
   </div>
+
 </section>

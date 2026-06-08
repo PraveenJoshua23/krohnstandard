@@ -8,6 +8,8 @@
   overflow-x: clip;
 }
 
+// ── Header ─────────────────────────────────────────────────────────────────────
+
 .colours__header {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -43,7 +45,13 @@
   align-self: end;
 }
 
-/* ── Palette ── */
+// ── Layout switcher ────────────────────────────────────────────────────────────
+
+.palette-desktop { display: block; }
+.palette-mobile  { display: none;  }
+
+// ── Desktop palette: two rows of 5 ────────────────────────────────────────────
+
 .colour-palette {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -53,6 +61,8 @@
 .colour-palette--row2 {
   margin-top: 3px;
 }
+
+// ── Shared chip styles ─────────────────────────────────────────────────────────
 
 .colour-chip {
   position: relative;
@@ -110,36 +120,105 @@
   opacity: 1;
 }
 
-/* Chip colours */
-.cc-saffron .colour-chip__inner    { background: #D4A44C; }
-.cc-blush .colour-chip__inner      { background: #E8A0A8; }
-.cc-mocha .colour-chip__inner      { background: #7A5C48; }
-.cc-amethyst .colour-chip__inner   { background: #4A3568; }
-.cc-sage .colour-chip__inner       { background: #8A9E6A; }
-.cc-crimson .colour-chip__inner    { background: #8B2635; }
-.cc-riviera .colour-chip__inner    { background: #5A9EB8; }
-.cc-glacier .colour-chip__inner    { background: #A8C8D4; }
-.cc-emerald .colour-chip__inner    { background: #1A4A2E; }
-.cc-graphite .colour-chip__inner   { background: #5A5A5A; }
+// ── Chip colours ───────────────────────────────────────────────────────────────
+
+.cc-saffron  .colour-chip__inner { background: #D4A44C; }
+.cc-blush    .colour-chip__inner { background: #E8A0A8; }
+.cc-mocha    .colour-chip__inner { background: #7A5C48; }
+.cc-amethyst .colour-chip__inner { background: #4A3568; }
+.cc-sage     .colour-chip__inner { background: #8A9E6A; }
+.cc-crimson  .colour-chip__inner { background: #8B2635; }
+.cc-riviera  .colour-chip__inner { background: #5A9EB8; }
+.cc-glacier  .colour-chip__inner { background: #A8C8D4; }
+.cc-emerald  .colour-chip__inner { background: #1A4A2E; }
+.cc-graphite .colour-chip__inner { background: #5A5A5A; }
+
+// ── Mobile palette: horizontal scroll strip ────────────────────────────────────
+
+.colour-strip {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  // hide scrollbar
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+.strip-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.strip-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(201, 168, 76, 0.3);
+  display: block;
+}
+
+// ── Desktop breakpoints ────────────────────────────────────────────────────────
 
 @media (max-width: 880px) {
   .colours__header {
     grid-template-columns: 1fr;
   }
-
-  .colour-palette {
-    grid-template-columns: repeat(5, 1fr);
-  }
 }
 
-@media (max-width: 480px) {
-  .colour-palette {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
+// ── Mobile: switch to strip layout ────────────────────────────────────────────
 
-@media (max-width: 360px) {
-  .colour-palette {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 640px) {
+  .colours {
+    // Remove side padding so strip runs edge-to-edge
+    padding-inline: 0;
+    padding-bottom: clamp(40px, 8vw, 60px);
+  }
+
+  // Restore side padding for header only
+  .colours__header {
+    padding-inline: clamp(1.25rem, 5vw, 1.5rem);
+    margin-bottom: clamp(28px, 6vw, 40px);
+    grid-template-columns: 1fr;
+  }
+
+  // Toggle layouts
+  .palette-desktop { display: none; }
+  .palette-mobile  {
+    display: block;
+    // Restore container side padding for scroll hint dots
+    padding-inline: 0;
+  }
+
+  // Strip: peek at next chip for discoverability
+  .colour-strip {
+    padding-inline: clamp(1.25rem, 5vw, 1.5rem);
+    scroll-padding-inline-start: clamp(1.25rem, 5vw, 1.5rem);
+  }
+
+  // Each chip: ~80vw wide, peek ~10vw of next chip
+  .palette-mobile .colour-chip {
+    flex: 0 0 72vw;
+    aspect-ratio: 3 / 4; // portrait — phone imagery sits better tall than wide
+    scroll-snap-align: start;
+  }
+
+  // Phone image — raised so more of it shows in portrait frame
+  .palette-mobile .colour-chip__phone {
+    height: 88%;
+    transform: translateX(-50%) translateY(8%);
+  }
+
+  // Name label always visible on mobile (no hover)
+  .palette-mobile .colour-chip__info {
+    opacity: 1;
+    padding: 16px 14px;
+    font-size: 7.5px;
+    letter-spacing: 0.28em;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.68));
   }
 }

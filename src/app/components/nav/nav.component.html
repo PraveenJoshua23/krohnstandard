@@ -1,4 +1,8 @@
-<header class="nav" [class.is-scrolled]="scrolled()">
+<header
+  class="nav"
+  [class.is-scrolled]="scrolled()"
+  [class.menu-open]="menuOpen()"
+>
   <div class="nav__inner">
     <a routerLink="/" class="nav__brand" aria-label="KROHN — home">
       <img src="/images/KROHN.svg" alt="KROHN" class="nav__logo" />
@@ -8,9 +12,43 @@
       <a href="#collection">Collection</a>
       <a href="#materials">Materials</a>
       <a href="#atelier">Atelier</a>
-      <a href="#contact">Contact</a>
+      <button type="button" class="nav__link-btn" (click)="openContact()">Contact</button>
     </nav>
 
-    <a routerLink="/studio" class="nav__cta">Studio</a>
+    <div class="nav__end">
+      <button type="button" class="nav__cta" (click)="openContact()">Commission</button>
+      <button
+        type="button"
+        class="nav__burger"
+        [class.is-open]="menuOpen()"
+        [attr.aria-expanded]="menuOpen()"
+        aria-label="Toggle navigation menu"
+        aria-controls="nav-overlay"
+        (click)="toggleMenu()"
+      >
+        <span class="nav__burger-bar"></span>
+        <span class="nav__burger-bar"></span>
+        <span class="nav__burger-bar"></span>
+      </button>
+    </div>
   </div>
 </header>
+
+<!-- Full-screen overlay — mobile only, sits below the nav bar (z-index: 49) -->
+<div
+  id="nav-overlay"
+  class="nav__overlay"
+  [class.is-open]="menuOpen()"
+  role="dialog"
+  aria-label="Navigation menu"
+  [attr.aria-hidden]="!menuOpen()"
+>
+  <nav class="nav__overlay-links" aria-label="Primary mobile navigation">
+    <a href="#collection" class="nav__overlay-link" (click)="closeMenu()">Collection</a>
+    <a href="#materials"  class="nav__overlay-link" (click)="closeMenu()">Materials</a>
+    <a href="#atelier"    class="nav__overlay-link" (click)="closeMenu()">Atelier</a>
+    <button type="button" class="nav__overlay-link" (click)="openContactFromMenu()">Contact</button>
+  </nav>
+
+
+</div>

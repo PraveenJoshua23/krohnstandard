@@ -39,8 +39,8 @@ export class SmoothScrollService {
     });
   }
 
-  scrollTo(target: string | number | HTMLElement, offset = 0): void {
-    this.lenis?.scrollTo(target, { offset });
+  scrollTo(target: string | number | HTMLElement, offset = 0, duration?: number): void {
+    this.lenis?.scrollTo(target, { offset, ...(duration != null && { duration }) });
   }
 
   pause(): void {

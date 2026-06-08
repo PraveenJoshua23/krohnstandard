@@ -12,9 +12,13 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(3rem, 8vw, 100px);
-  align-items: center;
+  align-items: end;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.customise__right {
+  padding-bottom: 60px;
 }
 
 /* ── Diagram image ── */
@@ -26,7 +30,7 @@
 
 .customise__diagram-img {
   width: 100%;
-  height: auto;
+  max-height: 800px;
   display: block;
   object-fit: contain;
 }
@@ -106,18 +110,62 @@
 
 @media (max-width: 880px) {
   .customise {
-    padding-bottom: clamp(60px, 10vw, 140px);
+    padding-bottom: 0;
   }
 
   .customise__inner {
     grid-template-columns: 1fr;
   }
 
+  .customise__right {
+    order: 1;
+    padding-bottom: 20px;
+  }
+
   .customise__diagram-wrap {
     order: 2;
   }
+}
 
-  .customise__right {
-    order: 1;
+@media (max-width: 640px) {
+  .customise__body {
+    max-width: 100%;
+    margin: 24px 0 32px;
+  }
+
+  .custom-features {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .cf-item {
+    padding: 20px 18px;
+    // Lay icon + title on one line to save vertical space
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 14px;
+    align-items: center;
+  }
+
+  .cf-icon {
+    grid-row: 1 / 3;
+    align-self: start;
+    margin-top: 4px;
+    margin-bottom: 0;
+    width: 24px;
+  }
+
+  .cf-title {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .cf-desc {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 11px;
   }
 }

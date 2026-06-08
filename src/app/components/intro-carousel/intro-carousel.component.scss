@@ -2,31 +2,43 @@
   display: block;
 }
 
-// ─── Full-page stage ─────────────────────────────────────────────────────────
+// ── Scroll wrapper ─────────────────────────────────────────────────────────────
+// 400 vh = 100 vh viewport + 300 vh scroll travel (≈ 100 vh per collection).
 
-.intro {
+.hs {
+  height: 400dvh;
   position: relative;
-  width: 100%;
-  height: 100vh;
+}
+
+// ── Sticky stage ───────────────────────────────────────────────────────────────
+
+.hs__stage {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
   overflow: hidden;
   background: var(--color-ink);
 }
 
-// ─── Slides ──────────────────────────────────────────────────────────────────
+// ── Slides ─────────────────────────────────────────────────────────────────────
 
-.intro__slide {
+.hs__slide {
   position: absolute;
   inset: 0;
   opacity: 0;
-  will-change: opacity;
+  will-change: opacity, transform;
+
+  // Visible before GSAP initialises so the stage isn't black on initial paint.
+  // GSAP's from() animation takes over once Angular has bootstrapped.
+  &:first-child { opacity: 1; }
 }
 
-.intro__picture {
+.hs__picture {
   position: absolute;
   inset: 0;
 }
 
-.intro__img {
+.hs__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -34,133 +46,291 @@
   display: block;
   user-select: none;
   pointer-events: none;
+  will-change: transform;
+  // Slight contrast lift to make images feel more editorial
+  filter: contrast(1.06) saturate(1.05);
 }
 
-// ─── Series name ─────────────────────────────────────────────────────────────
+// ── Vignette overlay ───────────────────────────────────────────────────────────
+// Lives inside each .hs__slide — above image (z:1) but below content (z:4).
 
-.intro__name {
-  position: absolute;
-  bottom: clamp(5.5rem, 11vh, 9rem);
-  left: clamp(2rem, 5vw, 5rem);
-  font-family: 'Dancing Script', cursive;
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.92);
-  line-height: 1;
-  z-index: 1;
-  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
-  pointer-events: none;
-}
-
-// ─── Vignette overlay ────────────────────────────────────────────────────────
-
-.intro::after {
-  content: '';
+.hs__vignette {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, transparent 30%),
-    linear-gradient(to top,    rgba(0,0,0,0.45) 0%, transparent 40%);
-  pointer-events: none;
   z-index: 1;
+  pointer-events: none;
+  background:
+    // Top fade (room for nav)
+    linear-gradient(to bottom,  rgba(0, 0, 0, 0.40)  0%,  transparent 28%),
+    // Bottom fade (text legibility)
+    linear-gradient(to top,     rgba(0, 0, 0, 0.72)  0%,  transparent 55%),
+    // Left edge (subtle depth)
+    linear-gradient(to right,   rgba(0, 0, 0, 0.25)  0%,  transparent 45%);
 }
 
-// ─── Dot navigation ──────────────────────────────────────────────────────────
+// ── Film grain ─────────────────────────────────────────────────────────────────
+// Static SVG feTurbulence noise tile — adds a premium editorial quality.
+// Sits above vignette (z:2) but below content (z:4).
 
-.intro__dots {
+.hs__grain {
   position: absolute;
-  bottom: clamp(3.5rem, 7vh, 5.5rem);
-  left: 50%;
-  transform: translateX(-50%);
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.032;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+}
+
+// ── Slide content ──────────────────────────────────────────────────────────────
+
+.hs__content {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
   display: flex;
-  gap: 0.5rem;
-  z-index: 2;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.75rem, 3.5vw, 4rem) clamp(1.75rem, 4.5vw, 5rem);
+  padding-bottom: clamp(3.5rem, 6vh, 5.5rem); // leaves room for progress bar
+  pointer-events: none;
 }
 
-.intro__dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.45);
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  transition:
-    background 0.4s var(--ease-luxe),
-    transform 0.4s var(--ease-luxe);
+// ── Top row ────────────────────────────────────────────────────────────────────
 
-  &.is-active {
-    background: rgba(255, 255, 255, 0.95);
-    transform: scale(1.5);
-  }
-}
-
-// ─── Prev / Next arrows ──────────────────────────────────────────────────────
-
-.intro__arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 50%;
-  width: 2.75rem;
-  height: 2.75rem;
+.hs__top {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: rgba(255, 255, 255, 0.85);
-  cursor: pointer;
-  transition:
-    background 0.35s var(--ease-luxe),
-    border-color 0.35s var(--ease-luxe),
-    color 0.35s var(--ease-luxe);
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.18);
-    border-color: rgba(255, 255, 255, 0.55);
-    color: #fff;
-  }
+  justify-content: space-between;
 }
 
-.intro__arrow--prev {
-  left: clamp(1.25rem, 3vw, 2.5rem);
+.hs__label {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: #C9A84C;
+  font-weight: 400;
+  will-change: opacity, transform;
 }
 
-.intro__arrow--next {
-  right: clamp(1.25rem, 3vw, 2.5rem);
+.hs__series-num {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.22);
+  font-weight: 400;
 }
 
-// ─── Scroll hint ─────────────────────────────────────────────────────────────
+// ── Bottom row ─────────────────────────────────────────────────────────────────
 
-.intro__scroll-hint {
+.hs__bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.hs__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.hs__name {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 11.5vw, 13rem);
+  font-weight: 500;
+  line-height: 0.87;
+  letter-spacing: var(--tracking-display);
+  color: #fff;
+  margin: 0;
+  will-change: opacity, transform;
+}
+
+.hs__descriptor {
+  font-family: var(--font-sans);
+  font-size: clamp(10px, 1vw, 12px);
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.48);
+  margin: clamp(12px, 1.5vh, 18px) 0 0;
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 380px;
+  will-change: opacity, transform;
+}
+
+// ── Large ghost counter ─────────────────────────────────────────────────────────
+
+.hs__count {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 8vw, 10rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+  color: rgba(255, 255, 255, 0.07);
+  flex-shrink: 0;
+  align-self: flex-end;
+  user-select: none;
+}
+
+// ── Small top-right series indicator ───────────────────────────────────────────
+// (Visible in .hs__top — separate from the ghost counter)
+
+// ── Progress bar ───────────────────────────────────────────────────────────────
+
+.hs__progress {
   position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+  z-index: 6;
+}
+
+.hs__progress-fill {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to right, #8B6F2E, #C9A84C);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+// ── Scroll hint ────────────────────────────────────────────────────────────────
+
+.hs__scroll-hint {
+  position: absolute;
+  bottom: clamp(1.5rem, 3vh, 2.5rem);
   left: 50%;
-  bottom: 2rem;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
-  font-family: var(--font-sans);
-  font-size: 0.62rem;
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
-  z-index: 2;
+  gap: 0.6rem;
+  z-index: 6;
+  will-change: opacity;
 }
 
-.intro__scroll-line {
+.hs__scroll-text {
+  font-family: var(--font-sans);
+  font-size: 8px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 400;
+}
+
+.hs__scroll-line {
   width: 1px;
   height: 2rem;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), transparent);
-  animation: scroll-drop 2.4s var(--ease-luxe) infinite;
-  transform-origin: top;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.35), transparent);
+  animation: hs-scroll-drop 2.6s var(--ease-luxe) infinite;
+  transform-origin: top center;
 }
 
-@keyframes scroll-drop {
-  0%   { transform: scaleY(0); opacity: 0; }
-  40%  { transform: scaleY(1); opacity: 1; }
-  100% { transform: scaleY(1) translateY(110%); opacity: 0; }
+@keyframes hs-scroll-drop {
+  0%    { transform: scaleY(0);              opacity: 0; }
+  35%   { transform: scaleY(1);              opacity: 1; }
+  100%  { transform: scaleY(1) translateY(110%); opacity: 0; }
+}
+
+// ── Responsive ─────────────────────────────────────────────────────────────────
+
+@media (max-width: 640px) {
+  .hs__count       { display: none; }
+  .hs__scroll-hint { display: none; }
+
+  .hs__content {
+    // Tighter horizontal padding so text has more room
+    padding-inline: clamp(1.25rem, 5vw, 1.75rem);
+  }
+
+  .hs__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  // Name: use vw-relative sizing so it never exceeds the viewport width
+  .hs__name {
+    font-size: clamp(2.5rem, 13vw, 4rem);
+    line-height: 0.9;
+    // Let long names wrap rather than clip
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  // Descriptor: allow it to run the full width on mobile
+  .hs__descriptor {
+    max-width: 100%;
+    font-size: clamp(10px, 2.8vw, 12px);
+  }
+}
+
+@media (max-width: 400px) {
+  .hs__name {
+    font-size: clamp(2.25rem, 12vw, 3rem);
+  }
+}
+
+// ── Prev / Next arrow controls ─────────────────────────────────────────────────
+
+.hs__nav-arrows {
+  position: absolute;
+  right: clamp(1.5rem, 4vw, 4rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+
+.hs__arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.12);
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.25s, color 0.25s, background 0.25s;
+  padding: 0;
+
+  &:hover:not(:disabled) {
+    border-color: rgba(255, 255, 255, 0.65);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &:disabled {
+    opacity: 0.2;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(201, 168, 76, 0.7);
+    outline-offset: 3px;
+  }
+}
+
+// ── Reduced motion ─────────────────────────────────────────────────────────────
+
+@media (prefers-reduced-motion: reduce) {
+  .hs__scroll-line {
+    animation: none;
+    opacity: 0.35;
+  }
 }

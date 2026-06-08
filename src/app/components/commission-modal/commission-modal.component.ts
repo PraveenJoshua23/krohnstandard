@@ -121,13 +121,16 @@ export class CommissionModalComponent implements OnDestroy {
     this.scrollSvc.pause();
     document.body.style.overflow = 'hidden';
 
-    gsap.set(backdrop, { display: 'block', opacity: 0 });
+    // On mobile the backdrop is display:flex (bottom-sheet layout);
+    // on desktop display:block. GSAP must set the right value.
+    const isMobile = window.innerWidth <= 640;
+    gsap.set(backdrop, { display: isMobile ? 'flex' : 'block', opacity: 0 });
     gsap.to(backdrop, { opacity: 1, duration: 0.35, ease: 'power2.out' });
 
     if (panel) {
       gsap.fromTo(
         panel,
-        { y: 36, opacity: 0 },
+        { y: isMobile ? 80 : 36, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.55, ease: 'power3.out', delay: 0.08 },
       );
     }
