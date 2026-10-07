@@ -3,10 +3,10 @@
 }
 
 // ── Scroll wrapper ─────────────────────────────────────────────────────────────
-// 400 vh = 100 vh viewport + 300 vh scroll travel (≈ 100 vh per collection).
+// 300 vh = 100 vh viewport + 200 vh scroll travel (≈ 100 vh per collection).
 
 .hs {
-  height: 400dvh;
+  height: 300dvh;
   position: relative;
 }
 

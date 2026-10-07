@@ -13,7 +13,6 @@ export const PANELS: PanelMeta[] = [
   { id: 'home',      label: 'Home',       group: 'home' },
   { id: 'elysian',   label: 'Elysian',    group: 'collection' },
   { id: 'sovereign', label: 'Sovereign',  group: 'collection' },
-  { id: 'aurelian',  label: 'Aurelian',   group: 'collection' },
   { id: 'atelier',   label: 'Atelier',    group: 'collection' },
   { id: 'materials', label: 'Materials',  group: 'materials' },
   { id: 'commission',label: 'Commission', group: 'commission' },

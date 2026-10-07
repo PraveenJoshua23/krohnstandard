@@ -81,20 +81,12 @@ export class IntroCarouselComponent implements AfterViewInit, OnDestroy {
       number:     '02',
     },
     {
-      src:        'images/carousel4.png',
-      alt:        'Aurelian series — hand-stitched leather',
-      label:      'Series 02',
-      name:       'Aurelian',
-      descriptor: 'Hand-stitched full-grain leather on anodised frames.',
-      number:     '03',
-    },
-    {
       src:        'images/carousel2.png',
       alt:        'Atelier series — exotic leather and precious metals',
       label:      'Sovereign II',
       name:       'Atelier',
       descriptor: 'Exotic leather married to hand-poured precious metals.',
-      number:     '04',
+      number:     '03',
     },
   ];
 
@@ -291,7 +283,7 @@ export class IntroCarouselComponent implements AfterViewInit, OnDestroy {
     const progressFill = this.progressEl()?.nativeElement;
     const hint         = this.scrollHint()?.nativeElement;
 
-    if (!wrapper || slides.length < 4) return;
+    if (!wrapper || slides.length < 2) return;
 
     const n = slides.length;
 

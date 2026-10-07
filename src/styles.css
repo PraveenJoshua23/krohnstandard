@@ -8,17 +8,16 @@
    ========================================================================== */
 
 @font-face {
-    font-family: 'CondorExtd';
-    src: url('/fonts/CondorExtd-Light.otf') format('opentype'),
-         url('/fonts/CondorExtd-Light.ttf') format('truetype');
-    font-weight: 300;
+    font-family: 'Condor ExtraLight';
+    src: url('/fonts/Condor-ExtraLight.otf') format('opentype');
+    font-weight: 200;
     font-style: normal;
     font-display: swap;
   }
 
 @theme {
-  --font-display: 'CondorExtd', "condor", "Times New Roman", serif;
-  --font-sans: "gill-sans-nova", "Gill Sans MT", "Helvetica Neue", sans-serif;
+  --font-display: 'Lora', "Times New Roman", serif;
+  --font-sans: 'Condor ExtraLight', "gill-sans-nova", "Gill Sans MT", "Helvetica Neue", sans-serif;
   --font-cormorant: 'Cormorant Garamond', 'Times New Roman', serif;
 
   --color-ink: #0a0a0a;

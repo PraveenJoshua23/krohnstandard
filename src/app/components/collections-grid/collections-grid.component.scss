@@ -38,24 +38,23 @@
 /* ── Grid ── */
 .collections__grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  grid-template-rows: 420px 320px;
+  grid-template-columns: 1fr 1fr;
   gap: 3px;
 }
 
+// Portrait photos (Atelier, Sovereign) sit side by side; the landscape
+// Elysian photo spans the full width below - keeps every phone uncropped.
 .col-card {
   position: relative;
   overflow: hidden;
   cursor: pointer;
   background: #111;
-
-  &:first-child {
-    grid-row: 1 / 3;
-  }
+  aspect-ratio: 4 / 5;
 }
 
 .col-card--wide {
-  grid-column: 2 / 4;
+  grid-column: 1 / 3;
+  aspect-ratio: 2 / 1;
 }
 
 /* ── Card image ── */
@@ -144,20 +143,10 @@
 @media (max-width: 880px) {
   .collections__grid {
     grid-template-columns: 1fr;
-    grid-template-rows: auto;
-  }
-
-  .col-card:first-child {
-    grid-row: auto;
-    height: 400px;
   }
 
   .col-card--wide {
     grid-column: auto;
-    height: 300px;
-  }
-
-  .col-card {
-    height: 280px;
+    aspect-ratio: 3 / 2;
   }
 }

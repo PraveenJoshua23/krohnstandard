@@ -58,7 +58,7 @@ export class CommissionModalComponent implements OnDestroy {
       this.status() === 'idle',
   );
 
-  readonly collections = ['Elysian', 'Sovereign', 'Aurelian', 'Atelier'] as const;
+  readonly collections = ['Elysian', 'Sovereign', 'Atelier'] as const;
 
   /** Guards against animating out before the modal has ever opened. */
   private hasOpenedOnce = false;

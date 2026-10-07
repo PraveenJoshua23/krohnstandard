@@ -52,20 +52,6 @@ export class ShowcaseComponent implements AfterViewInit, OnDestroy {
       ],
       placeholder: 'linear-gradient(135deg, #b8cdd6 0%, #e0c9b4 100%)',
     },
-    {
-      id: 'cuir-spectrum',
-      label: 'Series 02',
-      name: 'Aurelian',
-      descriptor: 'Hand-stitched full-grain leather on anodised frames.',
-      images: [
-        { webp: 'images/collection-cuir-spectrum-1.webp', png: 'images/collection-cuir-spectrum-1.png' },
-        { webp: 'images/collection-cuir-spectrum-2.webp', png: 'images/collection-cuir-spectrum-2.png' },
-        { webp: 'images/collection-cuir-spectrum-3.webp', png: 'images/collection-cuir-spectrum-3.png' },
-         { webp: 'images/collection-cuir-spectrum-4.webp', png: 'images/collection-cuir-spectrum-4.png' },
-          // { webp: 'images/collection-cuir-spectrum-5.webp', png: 'images/collection-cuir-spectrum-5.png' },
-      ],
-      placeholder: 'linear-gradient(135deg, #c9956a 0%, #7a4a2a 100%)',
-    },
   ];
 
   protected readonly sovereignSeries: Series[] = [

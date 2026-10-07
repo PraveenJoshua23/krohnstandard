@@ -69,20 +69,6 @@ const SERIES: SeriesOption[] = [
     backSection: 'glass-color',
   },
   {
-    id: 'aurelian',
-    name: 'Aurelian',
-    label: 'Series 02',
-    descriptor: 'Hand-stitched full-grain leather on anodised frames.',
-    preset: {
-      bodyFinish: 'color',
-      bodyColor: '#c9b99a',
-      backplate: 'leather',
-      antennaColor: '#4A4A4A',
-    },
-    bodySection: 'color-palette',
-    backSection: 'leather-carbon',
-  },
-  {
     id: 'sovereign',
     name: 'Sovereign',
     label: 'Sovereign I',
