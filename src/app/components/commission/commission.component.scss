@@ -5,6 +5,8 @@
 .commission {
   background: var(--color-forest);
   padding: clamp(60px, 10vw, 140px) clamp(1.5rem, 5vw, 60px);
+  padding-top: clamp(32px, 4vw, 60px);
+  padding-bottom: clamp(32px, 4vw, 60px);
   position: relative;
   overflow: hidden;
 
@@ -67,8 +69,8 @@
 }
 
 .commission__body {
-  font-size: 14px;
-  line-height: 2;
+  font-size: clamp(16px, 1.25vw, 19px);
+  line-height: 1.85;
   color: rgba(0, 0, 0, 0.6);
   font-weight: 300;
   font-family: var(--font-sans);
@@ -205,9 +207,9 @@
 }
 
 .step__text {
-  font-size: 12px;
+  font-size: clamp(15px, 1.1vw, 17px);
   color: rgba(28, 26, 22, 0.55);
-  line-height: 1.9;
+  line-height: 1.8;
   font-weight: 300;
   font-family: var(--font-sans);
 }

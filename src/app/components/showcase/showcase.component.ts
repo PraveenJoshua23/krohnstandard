@@ -59,7 +59,7 @@ export class ShowcaseComponent implements AfterViewInit, OnDestroy {
       id: 'krohn',
       label: 'Sovereign I',
       name: 'Sovereign',
-      descriptor: 'Precious metal alloys — gold, platinum & palladium.',
+      descriptor: 'Precious metal alloys — 24K gold, silver & rose gold.',
       images: [
         { webp: 'images/collection-krohn-1.webp', png: 'images/collection-krohn-1.png' },
         { webp: 'images/collection-krohn-2.webp', png: 'images/collection-krohn-2.png' },

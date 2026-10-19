@@ -27,11 +27,11 @@
   }
 }
 
-/* Left content — max 48% so image has room */
+/* Left content — max 42% so it stays clear of the image (which take the right 54%) */
 .manifesto__left {
   position: relative;
   z-index: 1;
-  width: min(48%, 560px);
+  width: min(42%, 560px);
   padding-right: 2rem;
 }
 
@@ -68,11 +68,11 @@
 }
 
 .manifesto__body {
-  font-size: 14px;
-  line-height: 2;
+  font-size: clamp(16px, 1.25vw, 19px);
+  line-height: 1.85;
   color: rgba(0, 0, 0, 0.65);
   font-weight: 300;
-  max-width: 420px;
+  max-width: 500px;
   font-family: var(--font-sans);
 
   strong {

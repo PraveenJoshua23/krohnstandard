@@ -69,7 +69,7 @@ export class IntroCarouselComponent implements AfterViewInit, OnDestroy {
       alt:        'Sovereign series — precious metal alloys',
       label:      'Sovereign I',
       name:       'Sovereign',
-      descriptor: 'Precious metal alloys — gold, platinum & palladium.',
+      descriptor: 'Precious metal alloys — 24K gold, silver & rose gold.',
       number:     '01',
     },
     {

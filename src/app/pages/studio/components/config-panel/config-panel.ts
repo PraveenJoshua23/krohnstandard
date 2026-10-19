@@ -72,7 +72,7 @@ const SERIES: SeriesOption[] = [
     id: 'sovereign',
     name: 'Sovereign',
     label: 'Sovereign I',
-    descriptor: 'Precious metal alloys — gold, platinum & palladium.',
+    descriptor: 'Precious metal alloys — 24K gold, silver & rose gold.',
     preset: {
       bodyFinish: 'platinum',
       backplate: 'platinum',

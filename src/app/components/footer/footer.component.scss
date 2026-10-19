@@ -25,15 +25,15 @@
 }
 
 .footer__brand-text {
-  font-size: 12px;
-  color: rgba(28, 26, 22, 0.45);
-  line-height: 1.9;
-  max-width: 280px;
+  font-size: clamp(14px, 1.05vw, 16px);
+  color: rgba(28, 26, 22, 0.6);
+  line-height: 1.8;
+  max-width: 340px;
   font-family: var(--font-sans);
 }
 
 .footer__col-title {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--color-gold-dim);
@@ -47,12 +47,12 @@
   margin: 0;
 
   li {
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
 
   a {
-    font-size: 12px;
-    color: rgba(28, 26, 22, 0.4);
+    font-size: clamp(14px, 1.05vw, 16px);
+    color: rgba(28, 26, 22, 0.55);
     text-decoration: none;
     letter-spacing: 0.05em;
     transition: color 0.3s;
@@ -73,8 +73,8 @@
 }
 
 .footer__copy {
-  font-size: 11px;
-  color: rgba(28, 26, 22, 0.3);
+  font-size: 13px;
+  color: rgba(28, 26, 22, 0.45);
   letter-spacing: 0.1em;
   font-family: var(--font-sans);
 }
@@ -84,8 +84,8 @@
   gap: 32px;
 
   a {
-    font-size: 10px;
-    color: rgba(28, 26, 22, 0.3);
+    font-size: 13px;
+    color: rgba(28, 26, 22, 0.45);
     text-decoration: none;
     letter-spacing: 0.1em;
     transition: color 0.3s;

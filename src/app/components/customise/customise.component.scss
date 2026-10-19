@@ -4,7 +4,7 @@
 
 .customise {
   background: var(--color-charcoal);
-  padding: clamp(60px, 10vw, 140px) clamp(1.5rem, 5vw, 60px) 0;
+  padding: clamp(32px, 4vw, 60px) clamp(1.5rem, 5vw, 60px) 0;
   overflow-x: clip;
 }
 
@@ -56,12 +56,12 @@
 }
 
 .customise__body {
-  font-size: 14px;
+  font-size: clamp(16px, 1.25vw, 19px);
   color: rgba(28, 26, 22, 0.55);
-  line-height: 2;
+  line-height: 1.85;
   font-weight: 300;
   margin: 32px 0 48px;
-  max-width: 420px;
+  max-width: 500px;
   font-family: var(--font-sans);
 }
 
@@ -94,7 +94,7 @@
 
 .cf-title {
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: clamp(18px, 1.4vw, 21px);
   font-weight: 500;
   color: var(--color-gold-dim);
   margin-bottom: 8px;
@@ -102,8 +102,8 @@
 }
 
 .cf-desc {
-  font-size: 11px;
-  color: rgba(28, 26, 22, 0.45);
+  font-size: clamp(14px, 1.05vw, 16px);
+  color: rgba(28, 26, 22, 0.6);
   line-height: 1.7;
   font-family: var(--font-sans);
 }
@@ -159,13 +159,13 @@
   .cf-title {
     grid-column: 2;
     grid-row: 1;
-    font-size: 14px;
+    font-size: 17px;
     margin-bottom: 4px;
   }
 
   .cf-desc {
     grid-column: 2;
     grid-row: 2;
-    font-size: 11px;
+    font-size: 14px;
   }
 }
