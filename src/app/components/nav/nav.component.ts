@@ -2,7 +2,12 @@ import { Component, HostListener, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommissionService } from '../../core/services/commission.service';
 
-const INTRO_CAROUSEL_DEPTH = () => window.innerHeight * 4;
+const INTRO_CAROUSEL_DEPTH = (): number => {
+  const carousel = document.querySelector('app-intro-carousel');
+  if (!carousel) return window.innerHeight * 4;
+  const navHeight = document.querySelector('.nav')?.getBoundingClientRect().height ?? 0;
+  return carousel.getBoundingClientRect().bottom + window.scrollY - navHeight;
+};
 
 @Component({
   selector: 'app-nav',
