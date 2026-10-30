@@ -5,6 +5,7 @@
 .materials {
   background: var(--color-cream);
   padding: clamp(60px, 10vw, 140px) clamp(1.5rem, 5vw, 60px);
+  padding-top: clamp(32px, 4vw, 60px);
   padding-bottom: clamp(32px, 4vw, 60px); 
   position: relative;
   overflow: hidden;

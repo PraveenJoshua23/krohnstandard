@@ -5,6 +5,8 @@
 .collections {
   background: var(--color-charcoal);
   padding: clamp(60px, 10vw, 140px) clamp(1.5rem, 5vw, 60px);
+  padding-top: clamp(32px, 4vw, 60px);
+  padding-bottom: clamp(32px, 4vw, 60px);
   overflow-x: clip;
 }
 
